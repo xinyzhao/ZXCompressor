@@ -1,5 +1,5 @@
 //
-// ZXCompressor+HuffmanCoding.m
+// ZXCompressor+Arithmetic.m
 //
 // Copyright (c) 2019 Zhao Xin (https://github.com/xinyzhao)
 //
@@ -22,8 +22,8 @@
 // THE SOFTWARE.
 //
 
-#import "ZXCompressor+HuffmanCoding.h"
+#import "ZXCompressor+Arithmetic.h"
 
-@implementation ZXCompressor (HuffmanCoding)
+@implementation ZXCompressor (Arithmetic)
 
 @end

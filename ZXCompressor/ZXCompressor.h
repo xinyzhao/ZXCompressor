@@ -26,18 +26,18 @@
 
 /* ZXCAlgorithm */
 typedef enum {
-    kZXCAlgorithmLZ77,
-    kZXCAlgorithmLZSS,
+    kZXCAlgorithmLZ77, // Lempel–Ziv 1977
+    kZXCAlgorithmLZSS, // Lempel–Ziv–Storer–Szymanski
     
-    kZXCAlgorithmLZ78,
-    kZXCAlgorithmLZW,
+    kZXCAlgorithmLZ78, // Lempel–Ziv 1978
+    kZXCAlgorithmLZW, // Lempel–Ziv–Welch
     
-    kZXCAlgorithmArithmeticCoding,
-    kZXCAlgorithmHuffmanCoding,
+    kZXCAlgorithmArithmetic, // Arithmetic coding
+    kZXCAlgorithmHuffman, // Huffman coding
     
-    kZXCAlgorithmBWT,
-    kZXCAlgorithmPPM,
-    kZXCAlgorithmRLE,
+    kZXCAlgorithmBWT, // Burrows–Wheeler transform
+    kZXCAlgorithmPPM, // Prediction by partial matching
+    kZXCAlgorithmRLE, // Run-length encoding
     
 } ZXCAlgorithm;
 
@@ -49,12 +49,42 @@ typedef enum {
  */
 @interface ZXCompressor : NSObject
 
+/**
+ Compress data using specified algorithm
+
+ @param data Uncompressed data
+ @param algorithm Compression algorithm, see ZXCAlgorithm
+ @param completion Callback when completed
+ */
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion;
 
+/**
+ Compress file using specified algorithm
+
+ @param source Uncompressed source file
+ @param target Compressed target file
+ @param algorithm Compression algorithm, see ZXCAlgorithm
+ @param completion Callback when completed
+ */
 + (void)compressFileAtPath:(NSString *)source toPath:(NSString *)target usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSError *error))completion;
 
+/**
+ Decompress data using specified algorithm
+
+ @param data Compressed data
+ @param algorithm Compression algorithm, see ZXCAlgorithm
+ @param completion Callback when completed
+ */
 + (void)decompressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion;
 
+/**
+ Decompress file using specified algorithm
+
+ @param source Compressed source file
+ @param target Decompressed target file
+ @param algorithm Compression algorithm, see ZXCAlgorithm
+ @param completion Callback when completed
+ */
 + (void)decompressFileAtPath:(NSString *)source toPath:(NSString *)target usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSError *error))completion;
 
 @end

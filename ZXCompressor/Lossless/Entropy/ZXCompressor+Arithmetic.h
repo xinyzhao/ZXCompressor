@@ -1,5 +1,5 @@
 //
-// ZXCompressor+ArithmeticCoding.h
+// ZXCompressor+Arithmetic.h
 //
 // Copyright (c) 2019 Zhao Xin (https://github.com/xinyzhao)
 //
@@ -24,6 +24,6 @@
 
 #import "ZXCompressor.h"
 
-@interface ZXCompressor (ArithmeticCoding)
+@interface ZXCompressor (Arithmetic)
 
 @end
