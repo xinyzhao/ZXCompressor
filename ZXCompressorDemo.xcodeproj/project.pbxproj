@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D874FA2230DBF4000007D6 /* AppDelegate.m */; };
+		70D874FE2230DBF4000007D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D874FD2230DBF4000007D6 /* ViewController.m */; };
+		70D875012230DBF4000007D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D874FF2230DBF4000007D6 /* Main.storyboard */; };
+		70D875032230DBF5000007D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70D875022230DBF5000007D6 /* Assets.xcassets */; };
+		70D875062230DBF5000007D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D875042230DBF5000007D6 /* LaunchScreen.storyboard */; };
+		70D875092230DBF5000007D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875082230DBF5000007D6 /* main.m */; };
+		70D875132230DBF5000007D6 /* ZXCompressorDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875122230DBF5000007D6 /* ZXCompressorDemoTests.m */; };
+		70D875732230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755D2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m */; };
+		70D875742230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755D2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m */; };
+		70D875752230DD85000007D6 /* ZXCompressor+HuffmanCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755E2230DD85000007D6 /* ZXCompressor+HuffmanCoding.m */; };
+		70D875762230DD85000007D6 /* ZXCompressor+HuffmanCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755E2230DD85000007D6 /* ZXCompressor+HuffmanCoding.m */; };
+		70D875772230DD85000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875622230DD85000007D6 /* ZXCompressor+BWT.m */; };
+		70D875782230DD85000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875622230DD85000007D6 /* ZXCompressor+BWT.m */; };
+		70D875792230DD85000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875632230DD85000007D6 /* ZXCompressor+PPM.m */; };
+		70D8757A2230DD85000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875632230DD85000007D6 /* ZXCompressor+PPM.m */; };
+		70D8757B2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875662230DD85000007D6 /* ZXCompressor+RLE.m */; };
+		70D8757C2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875662230DD85000007D6 /* ZXCompressor+RLE.m */; };
+		70D8757D2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */; };
+		70D8757E2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */; };
+		70D8757F2230DD85000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */; };
+		70D875802230DD85000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */; };
+		70D875812230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */; };
+		70D875822230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */; };
+		70D875832230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */; };
+		70D875842230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */; };
+		70D875852230DD85000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875712230DD85000007D6 /* ZXCompressor.m */; };
+		70D875862230DD85000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875712230DD85000007D6 /* ZXCompressor.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		70D8750F2230DBF5000007D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70D874EE2230DBF4000007D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70D874F52230DBF4000007D6;
+			remoteInfo = ZXCompressorDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		70D874F62230DBF4000007D6 /* ZXCompressorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZXCompressorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		70D874F92230DBF4000007D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		70D874FA2230DBF4000007D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		70D874FC2230DBF4000007D6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		70D874FD2230DBF4000007D6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		70D875002230DBF4000007D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		70D875022230DBF5000007D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		70D875052230DBF5000007D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		70D875072230DBF5000007D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70D875082230DBF5000007D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		70D8750E2230DBF5000007D6 /* ZXCompressorDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZXCompressorDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70D875122230DBF5000007D6 /* ZXCompressorDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCompressorDemoTests.m; sourceTree = "<group>"; };
+		70D875142230DBF5000007D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70D8755D2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+ArithmeticCoding.m"; sourceTree = "<group>"; };
+		70D8755E2230DD85000007D6 /* ZXCompressor+HuffmanCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+HuffmanCoding.m"; sourceTree = "<group>"; };
+		70D8755F2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+ArithmeticCoding.h"; sourceTree = "<group>"; };
+		70D875602230DD85000007D6 /* ZXCompressor+HuffmanCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+HuffmanCoding.h"; sourceTree = "<group>"; };
+		70D875622230DD85000007D6 /* ZXCompressor+BWT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+BWT.m"; sourceTree = "<group>"; };
+		70D875632230DD85000007D6 /* ZXCompressor+PPM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+PPM.m"; sourceTree = "<group>"; };
+		70D875642230DD85000007D6 /* ZXCompressor+RLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+RLE.h"; sourceTree = "<group>"; };
+		70D875652230DD85000007D6 /* ZXCompressor+BWT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+BWT.h"; sourceTree = "<group>"; };
+		70D875662230DD85000007D6 /* ZXCompressor+RLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+RLE.m"; sourceTree = "<group>"; };
+		70D875672230DD85000007D6 /* ZXCompressor+PPM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+PPM.h"; sourceTree = "<group>"; };
+		70D875692230DD85000007D6 /* ZXCompressor+LZ77.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ77.h"; sourceTree = "<group>"; };
+		70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ78.m"; sourceTree = "<group>"; };
+		70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZW.m"; sourceTree = "<group>"; };
+		70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZSS.m"; sourceTree = "<group>"; };
+		70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ77.m"; sourceTree = "<group>"; };
+		70D8756E2230DD85000007D6 /* ZXCompressor+LZ78.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ78.h"; sourceTree = "<group>"; };
+		70D8756F2230DD85000007D6 /* ZXCompressor+LZW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZW.h"; sourceTree = "<group>"; };
+		70D875702230DD85000007D6 /* ZXCompressor+LZSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZSS.h"; sourceTree = "<group>"; };
+		70D875712230DD85000007D6 /* ZXCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCompressor.m; sourceTree = "<group>"; };
+		70D875722230DD85000007D6 /* ZXCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCompressor.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		70D874F32230DBF4000007D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70D8750B2230DBF5000007D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		70D874ED2230DBF4000007D6 = {
+			isa = PBXGroup;
+			children = (
+				70D8755A2230DD85000007D6 /* ZXCompressor */,
+				70D874F82230DBF4000007D6 /* ZXCompressorDemo */,
+				70D875112230DBF5000007D6 /* ZXCompressorDemoTests */,
+				70D874F72230DBF4000007D6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		70D874F72230DBF4000007D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				70D874F62230DBF4000007D6 /* ZXCompressorDemo.app */,
+				70D8750E2230DBF5000007D6 /* ZXCompressorDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		70D874F82230DBF4000007D6 /* ZXCompressorDemo */ = {
+			isa = PBXGroup;
+			children = (
+				70D874F92230DBF4000007D6 /* AppDelegate.h */,
+				70D874FA2230DBF4000007D6 /* AppDelegate.m */,
+				70D874FC2230DBF4000007D6 /* ViewController.h */,
+				70D874FD2230DBF4000007D6 /* ViewController.m */,
+				70D874FF2230DBF4000007D6 /* Main.storyboard */,
+				70D875022230DBF5000007D6 /* Assets.xcassets */,
+				70D875042230DBF5000007D6 /* LaunchScreen.storyboard */,
+				70D875072230DBF5000007D6 /* Info.plist */,
+				70D875082230DBF5000007D6 /* main.m */,
+			);
+			path = ZXCompressorDemo;
+			sourceTree = "<group>";
+		};
+		70D875112230DBF5000007D6 /* ZXCompressorDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				70D875122230DBF5000007D6 /* ZXCompressorDemoTests.m */,
+				70D875142230DBF5000007D6 /* Info.plist */,
+			);
+			path = ZXCompressorDemoTests;
+			sourceTree = "<group>";
+		};
+		70D8755A2230DD85000007D6 /* ZXCompressor */ = {
+			isa = PBXGroup;
+			children = (
+				70D8755B2230DD85000007D6 /* Lossless */,
+				70D875722230DD85000007D6 /* ZXCompressor.h */,
+				70D875712230DD85000007D6 /* ZXCompressor.m */,
+			);
+			path = ZXCompressor;
+			sourceTree = "<group>";
+		};
+		70D8755B2230DD85000007D6 /* Lossless */ = {
+			isa = PBXGroup;
+			children = (
+				70D875682230DD85000007D6 /* Dictionary */,
+				70D8755C2230DD85000007D6 /* Entropy */,
+				70D875612230DD85000007D6 /* Others */,
+			);
+			path = Lossless;
+			sourceTree = "<group>";
+		};
+		70D8755C2230DD85000007D6 /* Entropy */ = {
+			isa = PBXGroup;
+			children = (
+				70D8755F2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.h */,
+				70D8755D2230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m */,
+				70D875602230DD85000007D6 /* ZXCompressor+HuffmanCoding.h */,
+				70D8755E2230DD85000007D6 /* ZXCompressor+HuffmanCoding.m */,
+			);
+			path = Entropy;
+			sourceTree = "<group>";
+		};
+		70D875612230DD85000007D6 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				70D875652230DD85000007D6 /* ZXCompressor+BWT.h */,
+				70D875622230DD85000007D6 /* ZXCompressor+BWT.m */,
+				70D875672230DD85000007D6 /* ZXCompressor+PPM.h */,
+				70D875632230DD85000007D6 /* ZXCompressor+PPM.m */,
+				70D875642230DD85000007D6 /* ZXCompressor+RLE.h */,
+				70D875662230DD85000007D6 /* ZXCompressor+RLE.m */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		70D875682230DD85000007D6 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				70D875692230DD85000007D6 /* ZXCompressor+LZ77.h */,
+				70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */,
+				70D8756E2230DD85000007D6 /* ZXCompressor+LZ78.h */,
+				70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */,
+				70D875702230DD85000007D6 /* ZXCompressor+LZSS.h */,
+				70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */,
+				70D8756F2230DD85000007D6 /* ZXCompressor+LZW.h */,
+				70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */,
+			);
+			path = Dictionary;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		70D874F52230DBF4000007D6 /* ZXCompressorDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70D875172230DBF5000007D6 /* Build configuration list for PBXNativeTarget "ZXCompressorDemo" */;
+			buildPhases = (
+				70D874F22230DBF4000007D6 /* Sources */,
+				70D874F32230DBF4000007D6 /* Frameworks */,
+				70D874F42230DBF4000007D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZXCompressorDemo;
+			productName = ZXCompressorDemo;
+			productReference = 70D874F62230DBF4000007D6 /* ZXCompressorDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		70D8750D2230DBF5000007D6 /* ZXCompressorDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70D8751A2230DBF5000007D6 /* Build configuration list for PBXNativeTarget "ZXCompressorDemoTests" */;
+			buildPhases = (
+				70D8750A2230DBF5000007D6 /* Sources */,
+				70D8750B2230DBF5000007D6 /* Frameworks */,
+				70D8750C2230DBF5000007D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70D875102230DBF5000007D6 /* PBXTargetDependency */,
+			);
+			name = ZXCompressorDemoTests;
+			productName = ZXCompressorDemoTests;
+			productReference = 70D8750E2230DBF5000007D6 /* ZXCompressorDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		70D874EE2230DBF4000007D6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = xyz;
+				TargetAttributes = {
+					70D874F52230DBF4000007D6 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					70D8750D2230DBF5000007D6 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 70D874F52230DBF4000007D6;
+					};
+				};
+			};
+			buildConfigurationList = 70D874F12230DBF4000007D6 /* Build configuration list for PBXProject "ZXCompressorDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 70D874ED2230DBF4000007D6;
+			productRefGroup = 70D874F72230DBF4000007D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				70D874F52230DBF4000007D6 /* ZXCompressorDemo */,
+				70D8750D2230DBF5000007D6 /* ZXCompressorDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		70D874F42230DBF4000007D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70D875062230DBF5000007D6 /* LaunchScreen.storyboard in Resources */,
+				70D875032230DBF5000007D6 /* Assets.xcassets in Resources */,
+				70D875012230DBF4000007D6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70D8750C2230DBF5000007D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		70D874F22230DBF4000007D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70D8757F2230DD85000007D6 /* ZXCompressor+LZW.m in Sources */,
+				70D875852230DD85000007D6 /* ZXCompressor.m in Sources */,
+				70D874FE2230DBF4000007D6 /* ViewController.m in Sources */,
+				70D875092230DBF5000007D6 /* main.m in Sources */,
+				70D8757D2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */,
+				70D8757B2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */,
+				70D875812230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */,
+				70D875792230DD85000007D6 /* ZXCompressor+PPM.m in Sources */,
+				70D875752230DD85000007D6 /* ZXCompressor+HuffmanCoding.m in Sources */,
+				70D875832230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */,
+				70D875732230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m in Sources */,
+				70D875772230DD85000007D6 /* ZXCompressor+BWT.m in Sources */,
+				70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70D8750A2230DBF5000007D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70D875842230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */,
+				70D8757A2230DD85000007D6 /* ZXCompressor+PPM.m in Sources */,
+				70D875782230DD85000007D6 /* ZXCompressor+BWT.m in Sources */,
+				70D8757E2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */,
+				70D875742230DD85000007D6 /* ZXCompressor+ArithmeticCoding.m in Sources */,
+				70D875802230DD85000007D6 /* ZXCompressor+LZW.m in Sources */,
+				70D875132230DBF5000007D6 /* ZXCompressorDemoTests.m in Sources */,
+				70D8757C2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */,
+				70D875762230DD85000007D6 /* ZXCompressor+HuffmanCoding.m in Sources */,
+				70D875822230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */,
+				70D875862230DD85000007D6 /* ZXCompressor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		70D875102230DBF5000007D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70D874F52230DBF4000007D6 /* ZXCompressorDemo */;
+			targetProxy = 70D8750F2230DBF5000007D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		70D874FF2230DBF4000007D6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70D875002230DBF4000007D6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		70D875042230DBF5000007D6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70D875052230DBF5000007D6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		70D875152230DBF5000007D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		70D875162230DBF5000007D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		70D875182230DBF5000007D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R2HQM4YK3V;
+				INFOPLIST_FILE = ZXCompressorDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ZXCompressorDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		70D875192230DBF5000007D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R2HQM4YK3V;
+				INFOPLIST_FILE = ZXCompressorDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ZXCompressorDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		70D8751B2230DBF5000007D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R2HQM4YK3V;
+				INFOPLIST_FILE = ZXCompressorDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ZXCompressorDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZXCompressorDemo.app/ZXCompressorDemo";
+			};
+			name = Debug;
+		};
+		70D8751C2230DBF5000007D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R2HQM4YK3V;
+				INFOPLIST_FILE = ZXCompressorDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ZXCompressorDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZXCompressorDemo.app/ZXCompressorDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		70D874F12230DBF4000007D6 /* Build configuration list for PBXProject "ZXCompressorDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70D875152230DBF5000007D6 /* Debug */,
+				70D875162230DBF5000007D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70D875172230DBF5000007D6 /* Build configuration list for PBXNativeTarget "ZXCompressorDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70D875182230DBF5000007D6 /* Debug */,
+				70D875192230DBF5000007D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70D8751A2230DBF5000007D6 /* Build configuration list for PBXNativeTarget "ZXCompressorDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70D8751B2230DBF5000007D6 /* Debug */,
+				70D8751C2230DBF5000007D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 70D874EE2230DBF4000007D6 /* Project object */;
+}
