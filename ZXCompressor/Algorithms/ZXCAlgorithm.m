@@ -6,7 +6,7 @@
 //  Copyright © 2019 xyz. All rights reserved.
 //
 
-#include "ZXCAlgorithm.h"
+#import "ZXCAlgorithm.h"
 
 uint32_t size_in_bits(uint32_t size) {
     return log(size) / log(2);
@@ -50,4 +50,25 @@ uint8_t matching_window_buffer(const uint8_t *window, const uint32_t windowSize,
         }
     }
     return symbol;
+}
+
+bool host_byte_order(void) {
+    unsigned char byte = (char)0xAABB;
+    return byte == 0xBB; // 0xAA is Big Endian, 0xBB is Little Endian
+}
+
+void host_to_network_byte_order(void *target, void *source, int length) {
+    if (host_byte_order()) {
+        for (int i = 0; i < length; i++) {
+            memcpy(&target[i], &source[length - i - 1], 1);
+        }
+    } else {
+        for (int i = 0; i < length; i++) {
+            memcpy(&target[i], &source[i], 1);
+        }
+    }
+}
+
+void network_to_host_byte_order(void *target, void *source, int length) {
+    host_to_network_byte_order(target, source, length);
 }

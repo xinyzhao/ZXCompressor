@@ -14,26 +14,28 @@
 		70D875062230DBF5000007D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D875042230DBF5000007D6 /* LaunchScreen.storyboard */; };
 		70D875092230DBF5000007D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875082230DBF5000007D6 /* main.m */; };
 		70D875132230DBF5000007D6 /* ZXCompressorDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875122230DBF5000007D6 /* ZXCompressorDemoTests.m */; };
-		70D875732230DD85000007D6 /* ZXCompressor+Arithmetic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755D2230DD85000007D6 /* ZXCompressor+Arithmetic.m */; };
-		70D875742230DD85000007D6 /* ZXCompressor+Arithmetic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755D2230DD85000007D6 /* ZXCompressor+Arithmetic.m */; };
-		70D875752230DD85000007D6 /* ZXCompressor+Huffman.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755E2230DD85000007D6 /* ZXCompressor+Huffman.m */; };
-		70D875762230DD85000007D6 /* ZXCompressor+Huffman.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8755E2230DD85000007D6 /* ZXCompressor+Huffman.m */; };
-		70D875772230DD85000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875622230DD85000007D6 /* ZXCompressor+BWT.m */; };
-		70D875782230DD85000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875622230DD85000007D6 /* ZXCompressor+BWT.m */; };
-		70D875792230DD85000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875632230DD85000007D6 /* ZXCompressor+PPM.m */; };
-		70D8757A2230DD85000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875632230DD85000007D6 /* ZXCompressor+PPM.m */; };
-		70D8757B2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875662230DD85000007D6 /* ZXCompressor+RLE.m */; };
-		70D8757C2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875662230DD85000007D6 /* ZXCompressor+RLE.m */; };
-		70D8757D2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */; };
-		70D8757E2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */; };
-		70D8757F2230DD85000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */; };
-		70D875802230DD85000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */; };
-		70D875812230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */; };
-		70D875822230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */; };
-		70D875832230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */; };
-		70D875842230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */; };
-		70D875852230DD85000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875712230DD85000007D6 /* ZXCompressor.m */; };
-		70D875862230DD85000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875712230DD85000007D6 /* ZXCompressor.m */; };
+		70D875A92230F728000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875902230F728000007D6 /* ZXCompressor.m */; };
+		70D875AA2230F728000007D6 /* ZXCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875902230F728000007D6 /* ZXCompressor.m */; };
+		70D875AB2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875962230F728000007D6 /* ZXCompressor+Arithmetic.m */; };
+		70D875AC2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875962230F728000007D6 /* ZXCompressor+Arithmetic.m */; };
+		70D875AD2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875972230F728000007D6 /* ZXCompressor+Huffman.m */; };
+		70D875AE2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875972230F728000007D6 /* ZXCompressor+Huffman.m */; };
+		70D875AF2230F728000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875992230F728000007D6 /* ZXCompressor+BWT.m */; };
+		70D875B02230F728000007D6 /* ZXCompressor+BWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875992230F728000007D6 /* ZXCompressor+BWT.m */; };
+		70D875B12230F728000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8759A2230F728000007D6 /* ZXCompressor+PPM.m */; };
+		70D875B22230F728000007D6 /* ZXCompressor+PPM.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8759A2230F728000007D6 /* ZXCompressor+PPM.m */; };
+		70D875B32230F728000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8759D2230F728000007D6 /* ZXCompressor+RLE.m */; };
+		70D875B42230F728000007D6 /* ZXCompressor+RLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D8759D2230F728000007D6 /* ZXCompressor+RLE.m */; };
+		70D875B52230F728000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A12230F728000007D6 /* ZXCompressor+LZ78.m */; };
+		70D875B62230F728000007D6 /* ZXCompressor+LZ78.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A12230F728000007D6 /* ZXCompressor+LZ78.m */; };
+		70D875B72230F728000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A22230F728000007D6 /* ZXCompressor+LZW.m */; };
+		70D875B82230F728000007D6 /* ZXCompressor+LZW.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A22230F728000007D6 /* ZXCompressor+LZW.m */; };
+		70D875B92230F728000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A32230F728000007D6 /* ZXCompressor+LZSS.m */; };
+		70D875BA2230F728000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A32230F728000007D6 /* ZXCompressor+LZSS.m */; };
+		70D875BB2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */; };
+		70D875BC2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */; };
+		70D875BF2230F775000007D6 /* ZXCAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875BE2230F775000007D6 /* ZXCAlgorithm.m */; };
+		70D875C02230F775000007D6 /* ZXCAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875BE2230F775000007D6 /* ZXCAlgorithm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,26 +62,28 @@
 		70D8750E2230DBF5000007D6 /* ZXCompressorDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZXCompressorDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D875122230DBF5000007D6 /* ZXCompressorDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCompressorDemoTests.m; sourceTree = "<group>"; };
 		70D875142230DBF5000007D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		70D8755D2230DD85000007D6 /* ZXCompressor+Arithmetic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+Arithmetic.m"; sourceTree = "<group>"; };
-		70D8755E2230DD85000007D6 /* ZXCompressor+Huffman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+Huffman.m"; sourceTree = "<group>"; };
-		70D8755F2230DD85000007D6 /* ZXCompressor+Arithmetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+Arithmetic.h"; sourceTree = "<group>"; };
-		70D875602230DD85000007D6 /* ZXCompressor+Huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+Huffman.h"; sourceTree = "<group>"; };
-		70D875622230DD85000007D6 /* ZXCompressor+BWT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+BWT.m"; sourceTree = "<group>"; };
-		70D875632230DD85000007D6 /* ZXCompressor+PPM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+PPM.m"; sourceTree = "<group>"; };
-		70D875642230DD85000007D6 /* ZXCompressor+RLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+RLE.h"; sourceTree = "<group>"; };
-		70D875652230DD85000007D6 /* ZXCompressor+BWT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+BWT.h"; sourceTree = "<group>"; };
-		70D875662230DD85000007D6 /* ZXCompressor+RLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+RLE.m"; sourceTree = "<group>"; };
-		70D875672230DD85000007D6 /* ZXCompressor+PPM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+PPM.h"; sourceTree = "<group>"; };
-		70D875692230DD85000007D6 /* ZXCompressor+LZ77.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ77.h"; sourceTree = "<group>"; };
-		70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ78.m"; sourceTree = "<group>"; };
-		70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZW.m"; sourceTree = "<group>"; };
-		70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZSS.m"; sourceTree = "<group>"; };
-		70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ77.m"; sourceTree = "<group>"; };
-		70D8756E2230DD85000007D6 /* ZXCompressor+LZ78.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ78.h"; sourceTree = "<group>"; };
-		70D8756F2230DD85000007D6 /* ZXCompressor+LZW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZW.h"; sourceTree = "<group>"; };
-		70D875702230DD85000007D6 /* ZXCompressor+LZSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZSS.h"; sourceTree = "<group>"; };
-		70D875712230DD85000007D6 /* ZXCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCompressor.m; sourceTree = "<group>"; };
-		70D875722230DD85000007D6 /* ZXCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCompressor.h; sourceTree = "<group>"; };
+		70D875902230F728000007D6 /* ZXCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCompressor.m; sourceTree = "<group>"; };
+		70D875942230F728000007D6 /* ZXCompressor+Huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+Huffman.h"; sourceTree = "<group>"; };
+		70D875952230F728000007D6 /* ZXCompressor+Arithmetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+Arithmetic.h"; sourceTree = "<group>"; };
+		70D875962230F728000007D6 /* ZXCompressor+Arithmetic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+Arithmetic.m"; sourceTree = "<group>"; };
+		70D875972230F728000007D6 /* ZXCompressor+Huffman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+Huffman.m"; sourceTree = "<group>"; };
+		70D875992230F728000007D6 /* ZXCompressor+BWT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+BWT.m"; sourceTree = "<group>"; };
+		70D8759A2230F728000007D6 /* ZXCompressor+PPM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+PPM.m"; sourceTree = "<group>"; };
+		70D8759B2230F728000007D6 /* ZXCompressor+RLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+RLE.h"; sourceTree = "<group>"; };
+		70D8759C2230F728000007D6 /* ZXCompressor+BWT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+BWT.h"; sourceTree = "<group>"; };
+		70D8759D2230F728000007D6 /* ZXCompressor+RLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+RLE.m"; sourceTree = "<group>"; };
+		70D8759E2230F728000007D6 /* ZXCompressor+PPM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+PPM.h"; sourceTree = "<group>"; };
+		70D875A02230F728000007D6 /* ZXCompressor+LZ77.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ77.h"; sourceTree = "<group>"; };
+		70D875A12230F728000007D6 /* ZXCompressor+LZ78.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ78.m"; sourceTree = "<group>"; };
+		70D875A22230F728000007D6 /* ZXCompressor+LZW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZW.m"; sourceTree = "<group>"; };
+		70D875A32230F728000007D6 /* ZXCompressor+LZSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZSS.m"; sourceTree = "<group>"; };
+		70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZXCompressor+LZ77.m"; sourceTree = "<group>"; };
+		70D875A52230F728000007D6 /* ZXCompressor+LZ78.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZ78.h"; sourceTree = "<group>"; };
+		70D875A62230F728000007D6 /* ZXCompressor+LZW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZW.h"; sourceTree = "<group>"; };
+		70D875A72230F728000007D6 /* ZXCompressor+LZSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZSS.h"; sourceTree = "<group>"; };
+		70D875A82230F728000007D6 /* ZXCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCompressor.h; sourceTree = "<group>"; };
+		70D875BD2230F775000007D6 /* ZXCAlgorithm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCAlgorithm.h; sourceTree = "<group>"; };
+		70D875BE2230F775000007D6 /* ZXCAlgorithm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCAlgorithm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +107,7 @@
 		70D874ED2230DBF4000007D6 = {
 			isa = PBXGroup;
 			children = (
-				70D8755A2230DD85000007D6 /* ZXCompressor */,
+				70D8758F2230F728000007D6 /* ZXCompressor */,
 				70D874F82230DBF4000007D6 /* ZXCompressorDemo */,
 				70D875112230DBF5000007D6 /* ZXCompressorDemoTests */,
 				70D874F72230DBF4000007D6 /* Products */,
@@ -144,61 +148,71 @@
 			path = ZXCompressorDemoTests;
 			sourceTree = "<group>";
 		};
-		70D8755A2230DD85000007D6 /* ZXCompressor */ = {
+		70D8758F2230F728000007D6 /* ZXCompressor */ = {
 			isa = PBXGroup;
 			children = (
-				70D8755B2230DD85000007D6 /* Lossless */,
-				70D875722230DD85000007D6 /* ZXCompressor.h */,
-				70D875712230DD85000007D6 /* ZXCompressor.m */,
+				70D875912230F728000007D6 /* Algorithms */,
+				70D875A82230F728000007D6 /* ZXCompressor.h */,
+				70D875902230F728000007D6 /* ZXCompressor.m */,
 			);
 			path = ZXCompressor;
 			sourceTree = "<group>";
 		};
-		70D8755B2230DD85000007D6 /* Lossless */ = {
+		70D875912230F728000007D6 /* Algorithms */ = {
 			isa = PBXGroup;
 			children = (
-				70D875682230DD85000007D6 /* Dictionary */,
-				70D8755C2230DD85000007D6 /* Entropy */,
-				70D875612230DD85000007D6 /* Others */,
+				70D875922230F728000007D6 /* Lossless */,
+				70D875BD2230F775000007D6 /* ZXCAlgorithm.h */,
+				70D875BE2230F775000007D6 /* ZXCAlgorithm.m */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
+		70D875922230F728000007D6 /* Lossless */ = {
+			isa = PBXGroup;
+			children = (
+				70D8759F2230F728000007D6 /* Dictionary */,
+				70D875932230F728000007D6 /* Entropy */,
+				70D875982230F728000007D6 /* Others */,
 			);
 			path = Lossless;
 			sourceTree = "<group>";
 		};
-		70D8755C2230DD85000007D6 /* Entropy */ = {
+		70D875932230F728000007D6 /* Entropy */ = {
 			isa = PBXGroup;
 			children = (
-				70D8755F2230DD85000007D6 /* ZXCompressor+Arithmetic.h */,
-				70D8755D2230DD85000007D6 /* ZXCompressor+Arithmetic.m */,
-				70D875602230DD85000007D6 /* ZXCompressor+Huffman.h */,
-				70D8755E2230DD85000007D6 /* ZXCompressor+Huffman.m */,
+				70D875952230F728000007D6 /* ZXCompressor+Arithmetic.h */,
+				70D875962230F728000007D6 /* ZXCompressor+Arithmetic.m */,
+				70D875942230F728000007D6 /* ZXCompressor+Huffman.h */,
+				70D875972230F728000007D6 /* ZXCompressor+Huffman.m */,
 			);
 			path = Entropy;
 			sourceTree = "<group>";
 		};
-		70D875612230DD85000007D6 /* Others */ = {
+		70D875982230F728000007D6 /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				70D875652230DD85000007D6 /* ZXCompressor+BWT.h */,
-				70D875622230DD85000007D6 /* ZXCompressor+BWT.m */,
-				70D875672230DD85000007D6 /* ZXCompressor+PPM.h */,
-				70D875632230DD85000007D6 /* ZXCompressor+PPM.m */,
-				70D875642230DD85000007D6 /* ZXCompressor+RLE.h */,
-				70D875662230DD85000007D6 /* ZXCompressor+RLE.m */,
+				70D8759C2230F728000007D6 /* ZXCompressor+BWT.h */,
+				70D875992230F728000007D6 /* ZXCompressor+BWT.m */,
+				70D8759E2230F728000007D6 /* ZXCompressor+PPM.h */,
+				70D8759A2230F728000007D6 /* ZXCompressor+PPM.m */,
+				70D8759B2230F728000007D6 /* ZXCompressor+RLE.h */,
+				70D8759D2230F728000007D6 /* ZXCompressor+RLE.m */,
 			);
 			path = Others;
 			sourceTree = "<group>";
 		};
-		70D875682230DD85000007D6 /* Dictionary */ = {
+		70D8759F2230F728000007D6 /* Dictionary */ = {
 			isa = PBXGroup;
 			children = (
-				70D875692230DD85000007D6 /* ZXCompressor+LZ77.h */,
-				70D8756D2230DD85000007D6 /* ZXCompressor+LZ77.m */,
-				70D8756E2230DD85000007D6 /* ZXCompressor+LZ78.h */,
-				70D8756A2230DD85000007D6 /* ZXCompressor+LZ78.m */,
-				70D875702230DD85000007D6 /* ZXCompressor+LZSS.h */,
-				70D8756C2230DD85000007D6 /* ZXCompressor+LZSS.m */,
-				70D8756F2230DD85000007D6 /* ZXCompressor+LZW.h */,
-				70D8756B2230DD85000007D6 /* ZXCompressor+LZW.m */,
+				70D875A02230F728000007D6 /* ZXCompressor+LZ77.h */,
+				70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */,
+				70D875A52230F728000007D6 /* ZXCompressor+LZ78.h */,
+				70D875A12230F728000007D6 /* ZXCompressor+LZ78.m */,
+				70D875A72230F728000007D6 /* ZXCompressor+LZSS.h */,
+				70D875A32230F728000007D6 /* ZXCompressor+LZSS.m */,
+				70D875A62230F728000007D6 /* ZXCompressor+LZW.h */,
+				70D875A22230F728000007D6 /* ZXCompressor+LZW.m */,
 			);
 			path = Dictionary;
 			sourceTree = "<group>";
@@ -303,19 +317,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70D8757F2230DD85000007D6 /* ZXCompressor+LZW.m in Sources */,
-				70D875852230DD85000007D6 /* ZXCompressor.m in Sources */,
+				70D875A92230F728000007D6 /* ZXCompressor.m in Sources */,
+				70D875B52230F728000007D6 /* ZXCompressor+LZ78.m in Sources */,
 				70D874FE2230DBF4000007D6 /* ViewController.m in Sources */,
+				70D875BB2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */,
+				70D875AF2230F728000007D6 /* ZXCompressor+BWT.m in Sources */,
 				70D875092230DBF5000007D6 /* main.m in Sources */,
-				70D8757D2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */,
-				70D8757B2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */,
-				70D875812230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */,
-				70D875792230DD85000007D6 /* ZXCompressor+PPM.m in Sources */,
-				70D875752230DD85000007D6 /* ZXCompressor+Huffman.m in Sources */,
-				70D875832230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */,
-				70D875732230DD85000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
-				70D875772230DD85000007D6 /* ZXCompressor+BWT.m in Sources */,
+				70D875B32230F728000007D6 /* ZXCompressor+RLE.m in Sources */,
+				70D875B12230F728000007D6 /* ZXCompressor+PPM.m in Sources */,
+				70D875B72230F728000007D6 /* ZXCompressor+LZW.m in Sources */,
+				70D875B92230F728000007D6 /* ZXCompressor+LZSS.m in Sources */,
+				70D875AB2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
+				70D875AD2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */,
 				70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */,
+				70D875BF2230F775000007D6 /* ZXCAlgorithm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,17 +338,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70D875842230DD85000007D6 /* ZXCompressor+LZ77.m in Sources */,
-				70D8757A2230DD85000007D6 /* ZXCompressor+PPM.m in Sources */,
-				70D875782230DD85000007D6 /* ZXCompressor+BWT.m in Sources */,
-				70D8757E2230DD85000007D6 /* ZXCompressor+LZ78.m in Sources */,
-				70D875742230DD85000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
-				70D875802230DD85000007D6 /* ZXCompressor+LZW.m in Sources */,
+				70D875BC2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */,
+				70D875B82230F728000007D6 /* ZXCompressor+LZW.m in Sources */,
+				70D875B02230F728000007D6 /* ZXCompressor+BWT.m in Sources */,
+				70D875C02230F775000007D6 /* ZXCAlgorithm.m in Sources */,
+				70D875AE2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */,
+				70D875B22230F728000007D6 /* ZXCompressor+PPM.m in Sources */,
+				70D875BA2230F728000007D6 /* ZXCompressor+LZSS.m in Sources */,
+				70D875B42230F728000007D6 /* ZXCompressor+RLE.m in Sources */,
+				70D875AA2230F728000007D6 /* ZXCompressor.m in Sources */,
+				70D875B62230F728000007D6 /* ZXCompressor+LZ78.m in Sources */,
+				70D875AC2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
 				70D875132230DBF5000007D6 /* ZXCompressorDemoTests.m in Sources */,
-				70D8757C2230DD85000007D6 /* ZXCompressor+RLE.m in Sources */,
-				70D875762230DD85000007D6 /* ZXCompressor+Huffman.m in Sources */,
-				70D875822230DD85000007D6 /* ZXCompressor+LZSS.m in Sources */,
-				70D875862230DD85000007D6 /* ZXCompressor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

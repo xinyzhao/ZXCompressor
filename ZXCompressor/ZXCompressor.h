@@ -22,30 +22,10 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
-/* ZXCAlgorithm */
-typedef enum {
-    kZXCAlgorithmLZ77, // Lempel–Ziv 1977
-    kZXCAlgorithmLZSS, // Lempel–Ziv–Storer–Szymanski
-    
-    kZXCAlgorithmLZ78, // Lempel–Ziv 1978
-    kZXCAlgorithmLZW, // Lempel–Ziv–Welch
-    
-    kZXCAlgorithmArithmetic, // Arithmetic coding
-    kZXCAlgorithmHuffman, // Huffman coding
-    
-    kZXCAlgorithmBWT, // Burrows–Wheeler transform
-    kZXCAlgorithmPPM, // Prediction by partial matching
-    kZXCAlgorithmRLE, // Run-length encoding
-    
-} ZXCAlgorithm;
+#import "ZXCAlgorithm.h"
 
 /**
  ZXCompressor
- 
- 注意：在读取和写入压缩数据时，注意大端(Big Endian)与小端(Little Endian)的问题，
- 因为OSX/iOS系统和网络字节序一致，所以不用转换。
  */
 @interface ZXCompressor : NSObject
 
