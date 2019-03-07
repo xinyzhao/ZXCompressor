@@ -28,8 +28,8 @@
 
 @implementation ZXCompressor
 
-#define kZXCompressorWindowSize 256
-#define kZXCompressorBufferSize 64
+#define ZXCompressorWindowSize(n) (n < 4096 ? 256 : 4096)
+#define ZXCompressorBufferSize(n) (n < 4096 ? 64 : 256)
 
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion {
     // 输入数据
@@ -42,7 +42,9 @@
         case kZXCAlgorithmLZ77:
         {
             // 开始处理数据
-            [ZXCompressor compressUsingLZ77:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [ZXCompressor compressUsingLZ77:ZXCompressorWindowSize(inputSize)
+                                 bufferSize:ZXCompressorBufferSize(inputSize)
+                                 readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 memcpy(&buffer[0], &input[offset], bufSize);
                 return bufSize;
@@ -61,7 +63,9 @@
         case kZXCAlgorithmLZSS:
         {
             // 开始处理数据
-            [ZXCompressor compressUsingLZSS:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [ZXCompressor compressUsingLZSS:ZXCompressorWindowSize(inputSize)
+                                 bufferSize:ZXCompressorBufferSize(inputSize)
+                                 readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 memcpy(&buffer[0], &input[offset], bufSize);
                 return bufSize;
@@ -116,7 +120,9 @@
         case kZXCAlgorithmLZ77:
         {
             // 开始处理数据
-            [self compressUsingLZ77:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self compressUsingLZ77:ZXCompressorWindowSize(inputSize)
+                         bufferSize:ZXCompressorBufferSize(inputSize)
+                         readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 [input seekToFileOffset:offset];
                 NSData *data = [input readDataOfLength:bufSize];
@@ -141,7 +147,9 @@
         case kZXCAlgorithmLZSS:
         {
             // 开始处理数据
-            [self compressUsingLZSS:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self compressUsingLZSS:ZXCompressorWindowSize(inputSize)
+                         bufferSize:ZXCompressorBufferSize(inputSize)
+                         readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 [input seekToFileOffset:offset];
                 NSData *data = [input readDataOfLength:bufSize];
@@ -179,7 +187,9 @@
         case kZXCAlgorithmLZ77:
         {
             // 开始处理数据
-            [self decompressUsingLZ77:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self decompressUsingLZ77:ZXCompressorWindowSize(inputSize)
+                           bufferSize:ZXCompressorBufferSize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 memcpy(&buffer[0], &input[offset], bufSize);
                 return bufSize;
@@ -198,7 +208,9 @@
         case kZXCAlgorithmLZSS:
         {
             // 开始处理数据
-            [self decompressUsingLZSS:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self decompressUsingLZSS:ZXCompressorWindowSize(inputSize)
+                           bufferSize:ZXCompressorBufferSize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 memcpy(&buffer[0], &input[offset], bufSize);
                 return bufSize;
@@ -252,7 +264,9 @@
         case kZXCAlgorithmLZ77:
         {
             // 开始处理数据
-            [self decompressUsingLZ77:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self decompressUsingLZ77:ZXCompressorWindowSize(inputSize)
+                           bufferSize:ZXCompressorBufferSize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 [input seekToFileOffset:offset];
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 NSData *data = [input readDataOfLength:bufSize];
@@ -276,7 +290,9 @@
         case kZXCAlgorithmLZSS:
         {
             // 开始处理数据
-            [self decompressUsingLZSS:kZXCompressorWindowSize bufferSize:kZXCompressorBufferSize readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+            [self decompressUsingLZSS:ZXCompressorWindowSize(inputSize)
+                           bufferSize:ZXCompressorBufferSize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                 [input seekToFileOffset:offset];
                 uint32_t bufSize = MIN(length, inputSize - offset);
                 NSData *data = [input readDataOfLength:bufSize];

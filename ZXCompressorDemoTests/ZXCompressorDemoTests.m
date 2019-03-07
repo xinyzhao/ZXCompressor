@@ -29,37 +29,37 @@
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
     ZXCAlgorithm algorithm = kZXCAlgorithmLZSS;
-    NSString *prefix = @"lzss";
+//    NSString *prefix = @"lzss";
     //
     for (int i = 0; i < 6; i++) {
         NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", i];
         //
-        NSString *data1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d+.txt", prefix, i];
-        NSString *data2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d-.txt", prefix, i];
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         [ZXCompressor compressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-            if (data) {
-                [data writeToFile:data1 atomically:YES];
-                //
-                [ZXCompressor decompressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-                    if (data) {
-                        [data writeToFile:data2 atomically:YES];
-                    }
-                }];
-            }
+//            if (data) {
+//                NSString *data1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d+.txt", prefix, i];
+//                NSString *data2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d-.txt", prefix, i];
+//                [data writeToFile:data1 atomically:YES];
+//                //
+//                [ZXCompressor decompressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
+//                    if (data) {
+//                        [data writeToFile:data2 atomically:YES];
+//                    }
+//                }];
+//            }
         }];
         
         //
-        NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, i];
-        NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, i];
-        [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
-            if (error == nil) {
-                [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
-                    if (error == nil) {
-                    }
-                }];
-            }
-        }];
+//        NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, i];
+//        NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, i];
+//        [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
+//            if (error == nil) {
+//                [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
+//                    if (error == nil) {
+//                    }
+//                }];
+//            }
+//        }];
         
     }
 }
