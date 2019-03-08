@@ -29,8 +29,8 @@
 /**
  Compress the data/file using by LZSS algorithm
  
- @param windowSize The sliding window size, default is 256 bytes
- @param bufferSize The lookAheadBuffer size, default is 64 bytes
+ @param windowSize The sliding window size
+ @param bufferSize The lookAheadBuffer size
  @param readBuffer The input block
  @param writeBuffer The output block
  @param completion The completion block
@@ -42,10 +42,10 @@
                completion:(void (^)(void))completion;
 
 /**
- Decompress the data/file/url using by LZSS algorithm
+ Decompress the data/file using by LZSS algorithm
  
- @param windowSize The sliding window size, default is 256 bytes
- @param bufferSize The lookAheadBuffer size, default is 64 bytes
+ @param windowSize The sliding window size
+ @param bufferSize The lookAheadBuffer size
  @param readBuffer The input block
  @param writeBuffer The output block
  @param completion The completion block

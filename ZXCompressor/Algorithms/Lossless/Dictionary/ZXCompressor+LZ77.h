@@ -32,8 +32,8 @@
 /**
  Compress the data/file using by LZ77 algorithm
 
- @param windowSize The sliding window size, default is 256 bytes
- @param bufferSize The lookAheadBuffer size, default is 64 bytes
+ @param windowSize The sliding window size
+ @param bufferSize The lookAheadBuffer size
  @param readBuffer The input block
  @param writeBuffer The output block
  @param completion The completion block
@@ -45,10 +45,10 @@
                completion:(void (^)(void))completion;
 
 /**
- Decompress the data/file/url using by LZ77 algorithm
+ Decompress the data/file using by LZ77 algorithm
  
- @param windowSize The sliding window size, default is 256 bytes
- @param bufferSize The lookAheadBuffer size, default is 64 bytes
+ @param windowSize The sliding window size
+ @param bufferSize The lookAheadBuffer size
  @param readBuffer The input block
  @param writeBuffer The output block
  @param completion The completion block
