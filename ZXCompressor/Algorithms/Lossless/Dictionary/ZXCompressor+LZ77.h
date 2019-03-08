@@ -32,9 +32,10 @@
 /**
  Compress the data/file using by LZ77 algorithm
 
- @param windowSize The sliding window size
- @param bufferSize The lookAheadBuffer size
- @param readBuffer The input block
+ @param windowSize The sliding window size, affect the 'offset' size in bytes and matching speed,
+ eg. 256(window size) -> 1 byte (offset size), 4096(window size) -> 2 bytes (offset size)
+ @param bufferSize The lookAheadBuffer size, affect the 'length' size in bytes and matching speed.
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
  @param writeBuffer The output block
  @param completion The completion block
  */
@@ -47,10 +48,11 @@
 /**
  Decompress the data/file using by LZ77 algorithm
  
- @param windowSize The sliding window size
- @param bufferSize The lookAheadBuffer size
- @param readBuffer The input block
- @param writeBuffer The output block
+ @param windowSize The sliding window size, affect the 'offset' size in bytes and matching speed,
+ eg. 256(window size) -> 1 byte (offset size), 4096(window size) -> 2 bytes (offset size)
+ @param bufferSize The lookAheadBuffer size, affect the 'length' size in bytes and matching speed.
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block,
  @param completion The completion block
  */
 + (void)decompressUsingLZ77:(const uint32_t)windowSize
