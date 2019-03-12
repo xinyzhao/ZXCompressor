@@ -56,6 +56,5 @@ extern hashtable hashtable_new(int size);
 extern void hashtable_free(hashtable table);
 extern void hashtable_set_node(hashtable table, const void *key, int key_len, const void *value, int val_len);
 extern hashnode hashtable_get_node(hashtable table, const void *key, int key_len);
-extern void hashtable_remove_node(hashtable table, const void *key, int key_len);
 
 #endif /* hashtable_h */

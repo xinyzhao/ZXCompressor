@@ -141,15 +141,3 @@ hashnode hashtable_get_node(hashtable table, const void *key, int key_len) {
     }
     return NULL;
 }
-
-void hashtable_remove_node(hashtable table, const void *key, int key_len) {
-    unsigned int i = simple_hash(key, key_len) % table->size;
-    for (hashnode node = &table->node[i]; node != NULL; node = node->next) {
-        if (node->key && node->key->length == key_len && (memcmp(key, node->key->data, key_len) == 0)) {
-            if (&table->node[i] == node) {
-                table->used--;
-            }
-            break;
-        }
-    }
-}
