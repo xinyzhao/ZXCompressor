@@ -26,4 +26,30 @@
 
 @interface ZXCompressor (LZW)
 
+/**
+ Compress the data/file using by LZW algorithm
+ 
+ @param dictionarySize The code dictionary size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block
+ @param completion The completion block
+ */
++ (void)compressUsingLZW:(const uint32_t)dictionarySize
+              readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
+             writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
+              completion:(void (^)(void))completion;
+
+/**
+ Decompress the data/file using by LZW algorithm
+ 
+ @param dictionarySize The code dictionary size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block
+ @param completion The completion block
+ */
++ (void)decompressUsingLZW:(const uint32_t)dictionarySize
+                readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
+               writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
+                completion:(void (^)(void))completion;
+
 @end

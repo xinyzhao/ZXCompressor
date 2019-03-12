@@ -29,10 +29,10 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    ZXCAlgorithm algorithm = kZXCAlgorithmLZ78;
-    NSString *prefix = @"lz78";
+    ZXCAlgorithm algorithm = kZXCAlgorithmLZW;
+    NSString *prefix = @"lzw";
     //
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 1; i++) {
         NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", i];
         //
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];

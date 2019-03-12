@@ -33,22 +33,21 @@
                completion:(void (^)(void))completion {
     // 编码字节数, 根据词典的大小(tableSize)决定
     uint32_t codeSize = size_in_bytes(tableSize);
-    // 字符字节数
+    // 符号字节数
     uint32_t symbolSize = sizeof(uint8_t);
     // 短语字节数
     uint32_t phraseSize = codeSize + symbolSize;
-    // 前缀字节数(预分配)
+    // 前缀缓冲区大小(动态分配)
     uint32_t prefixSize = 2;
-    // 前缀缓冲区+
+    // 前缀缓冲区+短语缓冲区
     uint8_t *prefix = malloc(prefixSize);
-    memset(prefix, 0, prefixSize);
-    uint32_t length = 0; // for prefix
-    // 符号缓冲区
-    uint8_t *symbol = malloc(symbolSize);
-    memset(symbol, 0, symbolSize);
-    // 编码缓冲区
     uint8_t *phrase = malloc(phraseSize);
+    memset(prefix, 0, prefixSize);
     memset(phrase, 0, phraseSize);
+    // 符号缓冲区
+    uint8_t symbol = 0;
+    // 前缀缓冲区当前长度
+    uint32_t length = 0; // for prefix
     // 初始化字典
     hashtable table = hashtable_new(tableSize);
     // 字典编码
@@ -58,7 +57,7 @@
     // 开始处理数据
     for (uint32_t offset = 0; ; offset++) {
         // 读入数据
-        uint32_t read = readBuffer ? readBuffer(symbol, symbolSize, offset) : 0;
+        uint32_t read = readBuffer ? readBuffer(&symbol, symbolSize, offset) : 0;
         if (read == 0) {
             // 输出最后的编码
             if (length > 0) {
@@ -74,7 +73,7 @@
             prefix = realloc(prefix, prefixSize);
         }
         // 复制符号到前缀缓冲区，组成新的前缀
-        memcpy(&prefix[length++], symbol, symbolSize);
+        memcpy(&prefix[length++], &symbol, symbolSize);
         // 查找编码
         code = 0;
         hashnode node = hashtable_get_node(table, prefix, length);
@@ -100,13 +99,14 @@
         }
         // 设置编码
         memcpy(&phrase[0], &code_nbo, codeSize);
-        // 设置字符
-        memcpy(&phrase[codeSize], symbol, symbolSize);
+        // 设置符号
+        memcpy(&phrase[codeSize], &symbol, symbolSize);
         // 重置编码
         code_nbo = 0;
+        // 重置前缀
         memset(prefix, 0, prefixSize);
         length = 0;
-        // 复制短语到输出缓冲区
+        // 输出短语
         if (writeBuffer) {
             writeBuffer(phrase, phraseSize);
         }
@@ -114,7 +114,6 @@
     // 释放资源
     hashtable_free(table);
     free(phrase);
-    free(symbol);
     free(prefix);
     // 完成
     if (completion) {
@@ -128,17 +127,20 @@
                  completion:(void (^)(void))completion {
     // 编码字节数, 根据词典的大小(tableSize)决定
     uint32_t codeSize = size_in_bytes(tableSize);
-    // 字符字节数
-    uint8_t symbol = 0;
-    uint32_t symbolSize = sizeof(symbol);
-    // 短语编码区
+    // 符号字节数
+    uint32_t symbolSize = sizeof(uint8_t);
+    // 短语字节数
     uint32_t phraseSize = codeSize + symbolSize;
-    uint8_t *phrase = malloc(phraseSize);
-    memset(phrase, 0, phraseSize);
-    // 输出缓冲区
+    // 输出字节数(动态调整)
     uint32_t outputSize = 2;
+    // 短语编码区+输出缓冲区
+    uint8_t *phrase = malloc(phraseSize);
     uint8_t *output = malloc(outputSize);
+    memset(phrase, 0, phraseSize);
     memset(output, 0, outputSize);
+    // 符号缓冲区
+    uint8_t symbol = 0;
+    // 输出缓冲区当前长度
     uint32_t length = 0; // for output
     // 初始化字典
     hashtable table = hashtable_new(tableSize);
@@ -178,12 +180,12 @@
             outputSize *= 2;
             output = realloc(output, outputSize);
         }
-        // 复制字符
+        // 复制符号
         if (read == phraseSize) {
             memcpy(&output[length++], &symbol, symbolSize);
         }
         // 加入词典
-        if (table->used < tableSize) {
+        if (table->used < table->size) {
             hashtable_set_node(table, &code_next, codeSize, output, length);
             code_next++;
         } else {

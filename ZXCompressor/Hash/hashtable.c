@@ -58,20 +58,6 @@ hashnode hashnode_new(const void *key, int key_len, const void *value, int val_l
     return node;
 }
 
-void hashnode_set_key(hashnode node, const void *key, int key_len) {
-    if (node->key) {
-        hashdata_free(node->key);
-    }
-    node->key = hashdata_new(key, key_len);
-}
-
-void hashnode_set_value(hashnode node, const void *value, int val_len) {
-    if (node->value) {
-        hashdata_free(node->value);
-    }
-    node->value = hashdata_new(value, val_len);
-}
-
 void hashnode_free(hashnode node) {
     if (node) {
         if (node->key) {
@@ -87,6 +73,20 @@ void hashnode_free(hashnode node) {
     }
 }
 
+void hashnode_set_key(hashnode node, const void *key, int key_len) {
+    if (node->key) {
+        hashdata_free(node->key);
+    }
+    node->key = hashdata_new(key, key_len);
+}
+
+void hashnode_set_value(hashnode node, const void *value, int val_len) {
+    if (node->value) {
+        hashdata_free(node->value);
+    }
+    node->value = hashdata_new(value, val_len);
+}
+
 hashtable hashtable_new(int size) {
     hashtable ht = malloc(sizeof(_hashtable));
     ht->size = size;
@@ -97,12 +97,18 @@ hashtable hashtable_new(int size) {
 
 void hashtable_free(hashtable table) {
     if (table) {
-        while (table->node->next) {
-            hashnode node = table->node->next;
-            table->node->next = node->next;
-            hashnode_free(node);
+        if (table->node) {
+            for (int i = 0; i < table->size; i++) {
+                hashnode node = &table->node[i];
+                while (node->next) {
+                    hashnode next = node->next;
+                    node->next = next->next;
+                    hashnode_free(next);
+                }
+            }
+            free(table->node);
+            table->node = NULL;
         }
-        hashnode_free(table->node);
         free(table);
         table = NULL;
     }
@@ -112,20 +118,17 @@ void hashtable_set_node(hashtable table, const void *key, int key_len, const voi
     hashnode node = hashtable_get_node(table, key, key_len);
     if (node == NULL) {
         unsigned int i = simple_hash(key, key_len) % table->size;
-        for (node = &table->node[i]; node != NULL; node = node->next) {
-            // first
-            if (node->key == NULL) {
-                hashnode_set_key(node, key, key_len);
-                hashnode_set_value(node, value, val_len);
-                table->used++;
-                return;
-            }
+        node = &table->node[i];
+        if (node->key == NULL) {
+            hashnode_set_key(node, key, key_len);
+            hashnode_set_value(node, value, val_len);
+            table->used++;
+        } else { // conflict
+            node = hashnode_new(key, key_len, value, val_len);
+            node->next = table->node[i].next;
+            table->node[i].next = node;
+            table->used++;
         }
-        // new
-        node = hashnode_new(key, key_len, value, val_len);
-        node->next = table->node[i].next;
-        table->node[i].next = node;
-        table->used++;
     } else {
         // update value
         hashnode_set_value(node, value, val_len);
