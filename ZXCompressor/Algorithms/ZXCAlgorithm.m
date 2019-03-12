@@ -37,6 +37,27 @@ uint32_t size_in_bytes(uint32_t size) {
     return bytes;
 }
 
+bool host_byte_order(void) {
+    unsigned char byte = (char)0xAABB;
+    return byte == 0xBB; // 0xAA is Big Endian, 0xBB is Little Endian
+}
+
+void host_to_network_byte_order(void *target, void *source, int length) {
+    if (host_byte_order()) {
+        for (int i = 0; i < length; i++) {
+            memcpy(&target[i], &source[length - i - 1], 1);
+        }
+    } else {
+        for (int i = 0; i < length; i++) {
+            memcpy(&target[i], &source[i], 1);
+        }
+    }
+}
+
+void network_to_host_byte_order(void *target, void *source, int length) {
+    host_to_network_byte_order(target, source, length);
+}
+
 uint8_t matching_window_buffer(const uint8_t *window, const uint32_t windowSize, const uint8_t *buffer, const uint32_t bufferSize, uint32_t *offset, uint32_t *length) {
     // 初始化
     uint8_t symbol = buffer[0];
@@ -68,23 +89,3 @@ uint8_t matching_window_buffer(const uint8_t *window, const uint32_t windowSize,
     return symbol;
 }
 
-bool host_byte_order(void) {
-    unsigned char byte = (char)0xAABB;
-    return byte == 0xBB; // 0xAA is Big Endian, 0xBB is Little Endian
-}
-
-void host_to_network_byte_order(void *target, void *source, int length) {
-    if (host_byte_order()) {
-        for (int i = 0; i < length; i++) {
-            memcpy(&target[i], &source[length - i - 1], 1);
-        }
-    } else {
-        for (int i = 0; i < length; i++) {
-            memcpy(&target[i], &source[i], 1);
-        }
-    }
-}
-
-void network_to_host_byte_order(void *target, void *source, int length) {
-    host_to_network_byte_order(target, source, length);
-}

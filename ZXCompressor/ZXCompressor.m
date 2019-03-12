@@ -25,11 +25,13 @@
 #import "ZXCompressor.h"
 #import "ZXCompressor+LZ77.h"
 #import "ZXCompressor+LZSS.h"
+#import "ZXCompressor+LZ78.h"
 
 @implementation ZXCompressor
 
-#define ZXCompressorWindowSize(n) (n < 4096 ? 256 : 4096)
-#define ZXCompressorBufferSize(n) (n < 4096 ? 64 : 256)
+#define kWindowSize(n)      (n < 4096 ? 256 : 4096)
+#define kBufferSize(n)      (256)
+#define kDictionarySize(n)  (256)
 
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion {
     // 输入数据
@@ -41,44 +43,61 @@
     switch (algorithm) {
         case kZXCAlgorithmLZ77:
         {
-            // 开始处理数据
-            [ZXCompressor compressUsingLZ77:ZXCompressorWindowSize(inputSize)
-                                 bufferSize:ZXCompressorBufferSize(inputSize)
+            [ZXCompressor compressUsingLZ77:kWindowSize(inputSize)
+                                 bufferSize:kBufferSize(inputSize)
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                memcpy(&buffer[0], &input[offset], bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output appendBytes:buffer length:length];
-            } completion:^{
+                                     uint32_t bufSize = MIN(length, inputSize - offset);
+                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     return bufSize;
+                                 } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                                     [output appendBytes:buffer length:length];
+                                 } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZ77] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
+                                     NSLog(@"[LZ77] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
 #endif
-                if (completion) {
-                    completion([output copy]);
-                }
-            }];
+                                     if (completion) {
+                                         completion([output copy]);
+                                     }
+                                 }];
             break;
         }
         case kZXCAlgorithmLZSS:
         {
-            // 开始处理数据
-            [ZXCompressor compressUsingLZSS:ZXCompressorWindowSize(inputSize)
-                                 bufferSize:ZXCompressorBufferSize(inputSize)
+            [ZXCompressor compressUsingLZSS:kWindowSize(inputSize)
+                                 bufferSize:kBufferSize(inputSize)
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                memcpy(&buffer[0], &input[offset], bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output appendBytes:buffer length:length];
-            } completion:^{
+                                     uint32_t bufSize = MIN(length, inputSize - offset);
+                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     return bufSize;
+                                 } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                                     [output appendBytes:buffer length:length];
+                                 } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZSS] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
+                                     NSLog(@"[LZSS] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
 #endif
-                if (completion) {
-                    completion([output copy]);
-                }
-            }];
+                                     if (completion) {
+                                         completion([output copy]);
+                                     }
+                                 }];
+            break;
+        }
+        case kZXCAlgorithmLZ78:
+        {
+            [ZXCompressor compressUsingLZ78:kDictionarySize(inputSize)
+                                 readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                                     uint32_t bufSize = MIN(length, inputSize - offset);
+                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     return bufSize;
+                                 } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                                     [output appendBytes:buffer length:length];
+                                 } completion:^{
+#ifdef DEBUG
+                                     NSLog(@"[LZ78] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
+#endif
+                                     if (completion) {
+                                         completion([output copy]);
+                                     }
+                                 }];
             break;
         }
         default:
@@ -115,60 +134,83 @@
         return;
     }
     [output truncateFileAtOffset:0];
-    //
+    // 开始处理数据
     switch (algorithm) {
         case kZXCAlgorithmLZ77:
         {
-            // 开始处理数据
-            [self compressUsingLZ77:ZXCompressorWindowSize(inputSize)
-                         bufferSize:ZXCompressorBufferSize(inputSize)
+            [self compressUsingLZ77:kWindowSize(inputSize)
+                         bufferSize:kBufferSize(inputSize)
                          readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                [input seekToFileOffset:offset];
-                NSData *data = [input readDataOfLength:bufSize];
-                memcpy(buffer, data.bytes, bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output writeData:[NSData dataWithBytes:buffer length:length]];
-            } completion:^{
+                             uint32_t bufSize = MIN(length, inputSize - offset);
+                             [input seekToFileOffset:offset];
+                             NSData *data = [input readDataOfLength:bufSize];
+                             memcpy(buffer, data.bytes, bufSize);
+                             return bufSize;
+                         } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                             [output writeData:[NSData dataWithBytes:buffer length:length]];
+                         } completion:^{
 #ifdef DEBUG
-                uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
-                NSLog(@"[LZ77] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
+                             uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
+                             NSLog(@"[LZ77] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
 #endif
-                [input closeFile];
-                [output closeFile];
-                //
-                if (completion) {
-                    completion(nil);
-                }
-            }];
+                             [input closeFile];
+                             [output closeFile];
+                             //
+                             if (completion) {
+                                 completion(nil);
+                             }
+                         }];
             break;
         }
         case kZXCAlgorithmLZSS:
         {
-            // 开始处理数据
-            [self compressUsingLZSS:ZXCompressorWindowSize(inputSize)
-                         bufferSize:ZXCompressorBufferSize(inputSize)
+            [self compressUsingLZSS:kWindowSize(inputSize)
+                         bufferSize:kBufferSize(inputSize)
                          readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                [input seekToFileOffset:offset];
-                NSData *data = [input readDataOfLength:bufSize];
-                memcpy(buffer, data.bytes, bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output writeData:[NSData dataWithBytes:buffer length:length]];
-            } completion:^{
+                             uint32_t bufSize = MIN(length, inputSize - offset);
+                             [input seekToFileOffset:offset];
+                             NSData *data = [input readDataOfLength:bufSize];
+                             memcpy(buffer, data.bytes, bufSize);
+                             return bufSize;
+                         } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                             [output writeData:[NSData dataWithBytes:buffer length:length]];
+                         } completion:^{
 #ifdef DEBUG
-                uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
-                NSLog(@"[LZSS] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
+                             uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
+                             NSLog(@"[LZSS] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
 #endif
-                [input closeFile];
-                [output closeFile];
-                //
-                if (completion) {
-                    completion(nil);
-                }
-            }];
+                             [input closeFile];
+                             [output closeFile];
+                             //
+                             if (completion) {
+                                 completion(nil);
+                             }
+                         }];
+            break;
+        }
+        case kZXCAlgorithmLZ78:
+        {
+            [self compressUsingLZ78:kDictionarySize(inputSize)
+                         readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                             uint32_t bufSize = MIN(length, inputSize - offset);
+                             [input seekToFileOffset:offset];
+                             NSData *data = [input readDataOfLength:bufSize];
+                             memcpy(buffer, data.bytes, bufSize);
+                             return bufSize;
+                         } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                             [output writeData:[NSData dataWithBytes:buffer length:length]];
+                         } completion:^{
+#ifdef DEBUG
+                             uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
+                             NSLog(@"[LZ78] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
+#endif
+                             [input closeFile];
+                             [output closeFile];
+                             //
+                             if (completion) {
+                                 completion(nil);
+                             }
+                         }];
             break;
         }
         default:
@@ -182,48 +224,65 @@
     uint32_t inputSize = (uint32_t)data.length;
     // 输出数据
     NSMutableData *output = [[NSMutableData alloc] init];
-    // 按算法处理
+    // 开始处理数据
     switch (algorithm) {
         case kZXCAlgorithmLZ77:
         {
-            // 开始处理数据
-            [self decompressUsingLZ77:ZXCompressorWindowSize(inputSize)
-                           bufferSize:ZXCompressorBufferSize(inputSize)
+            [self decompressUsingLZ77:kWindowSize(inputSize)
+                           bufferSize:kBufferSize(inputSize)
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                memcpy(&buffer[0], &input[offset], bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output appendBytes:buffer length:length];
-            } completion:^{
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               memcpy(&buffer[0], &input[offset], bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output appendBytes:buffer length:length];
+                           } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
 #endif
-                if (completion) {
-                    completion([output copy]);
-                }
-            }];
+                               if (completion) {
+                                   completion([output copy]);
+                               }
+                           }];
             break;
         }
         case kZXCAlgorithmLZSS:
         {
-            // 开始处理数据
-            [self decompressUsingLZSS:ZXCompressorWindowSize(inputSize)
-                           bufferSize:ZXCompressorBufferSize(inputSize)
+            [self decompressUsingLZSS:kWindowSize(inputSize)
+                           bufferSize:kBufferSize(inputSize)
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                memcpy(&buffer[0], &input[offset], bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output appendBytes:buffer length:length];
-            } completion:^{
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               memcpy(&buffer[0], &input[offset], bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output appendBytes:buffer length:length];
+                           } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
 #endif
-                if (completion) {
-                    completion([output copy]);
-                }
-            }];
+                               if (completion) {
+                                   completion([output copy]);
+                               }
+                           }];
+            break;
+        }
+        case kZXCAlgorithmLZ78:
+        {
+            [self decompressUsingLZ78:kDictionarySize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               memcpy(&buffer[0], &input[offset], bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output appendBytes:buffer length:length];
+                           } completion:^{
+#ifdef DEBUG
+                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
+                               if (completion) {
+                                   completion([output copy]);
+                               }
+                           }];
             break;
         }
         default:
@@ -260,57 +319,80 @@
         return;
     }
     [output truncateFileAtOffset:0];
+    // 开始处理数据
     switch (algorithm) {
         case kZXCAlgorithmLZ77:
         {
-            // 开始处理数据
-            [self decompressUsingLZ77:ZXCompressorWindowSize(inputSize)
-                           bufferSize:ZXCompressorBufferSize(inputSize)
+            [self decompressUsingLZ77:kWindowSize(inputSize)
+                           bufferSize:kBufferSize(inputSize)
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                [input seekToFileOffset:offset];
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                NSData *data = [input readDataOfLength:bufSize];
-                memcpy(buffer, data.bytes, bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output writeData:[NSData dataWithBytes:buffer length:length]];
-            } completion:^{
+                               [input seekToFileOffset:offset];
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               NSData *data = [input readDataOfLength:bufSize];
+                               memcpy(buffer, data.bytes, bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output writeData:[NSData dataWithBytes:buffer length:length]];
+                           } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
 #endif
-                [input closeFile];
-                [output closeFile];
-                //
-                if (completion) {
-                    completion(nil);
-                }
-            }];
+                               [input closeFile];
+                               [output closeFile];
+                               //
+                               if (completion) {
+                                   completion(nil);
+                               }
+                           }];
             break;
         }
         case kZXCAlgorithmLZSS:
         {
-            // 开始处理数据
-            [self decompressUsingLZSS:ZXCompressorWindowSize(inputSize)
-                           bufferSize:ZXCompressorBufferSize(inputSize)
+            [self decompressUsingLZSS:kWindowSize(inputSize)
+                           bufferSize:kBufferSize(inputSize)
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
-                [input seekToFileOffset:offset];
-                uint32_t bufSize = MIN(length, inputSize - offset);
-                NSData *data = [input readDataOfLength:bufSize];
-                memcpy(buffer, data.bytes, bufSize);
-                return bufSize;
-            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
-                [output writeData:[NSData dataWithBytes:buffer length:length]];
-            } completion:^{
+                               [input seekToFileOffset:offset];
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               NSData *data = [input readDataOfLength:bufSize];
+                               memcpy(buffer, data.bytes, bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output writeData:[NSData dataWithBytes:buffer length:length]];
+                           } completion:^{
 #ifdef DEBUG
-                NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
 #endif
-                [input closeFile];
-                [output closeFile];
-                //
-                if (completion) {
-                    completion(nil);
-                }
-            }];
+                               [input closeFile];
+                               [output closeFile];
+                               //
+                               if (completion) {
+                                   completion(nil);
+                               }
+                           }];
+            break;
+        }
+        case kZXCAlgorithmLZ78:
+        {
+            [self decompressUsingLZ78:kDictionarySize(inputSize)
+                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                               [input seekToFileOffset:offset];
+                               uint32_t bufSize = MIN(length, inputSize - offset);
+                               NSData *data = [input readDataOfLength:bufSize];
+                               memcpy(buffer, data.bytes, bufSize);
+                               return bufSize;
+                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                               [output writeData:[NSData dataWithBytes:buffer length:length]];
+                           } completion:^{
+#ifdef DEBUG
+                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
+                               [input closeFile];
+                               [output closeFile];
+                               //
+                               if (completion) {
+                                   completion(nil);
+                               }
+                           }];
             break;
         }
         default:
@@ -319,4 +401,5 @@
 }
 
 @end
+
 

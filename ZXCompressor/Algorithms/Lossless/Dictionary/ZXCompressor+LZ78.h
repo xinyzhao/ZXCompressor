@@ -24,6 +24,35 @@
 
 #import "ZXCompressor.h"
 
+/**
+ ZXCompressor (LZ78)
+ */
 @interface ZXCompressor (LZ78)
+
+/**
+ Compress the data/file using by LZ78 algorithm
+ 
+ @param tableSize The code dictionary size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block
+ @param completion The completion block
+ */
++ (void)compressUsingLZ78:(const uint32_t)tableSize
+               readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
+              writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
+               completion:(void (^)(void))completion;
+
+/**
+ Decompress the data/file using by LZ78 algorithm
+ 
+ @param tableSize The code dictionary size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block
+ @param completion The completion block
+ */
++ (void)decompressUsingLZ78:(const uint32_t)tableSize
+                 readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
+                writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
+                 completion:(void (^)(void))completion;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ZXCompressor.h"
+#import "hash.h"
 
 @interface ZXCompressorDemoTests : XCTestCase
 
@@ -28,25 +29,25 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    ZXCAlgorithm algorithm = kZXCAlgorithmLZSS;
-//    NSString *prefix = @"lzss";
+    ZXCAlgorithm algorithm = kZXCAlgorithmLZ78;
+    NSString *prefix = @"lz78";
     //
     for (int i = 0; i < 6; i++) {
         NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", i];
         //
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
         [ZXCompressor compressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-//            if (data) {
-//                NSString *data1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d+.txt", prefix, i];
-//                NSString *data2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d-.txt", prefix, i];
-//                [data writeToFile:data1 atomically:YES];
-//                //
-//                [ZXCompressor decompressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-//                    if (data) {
-//                        [data writeToFile:data2 atomically:YES];
-//                    }
-//                }];
-//            }
+            if (data) {
+                NSString *data1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d+.txt", prefix, i];
+                [data writeToFile:data1 atomically:YES];
+                //
+                NSString *data2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d-.txt", prefix, i];
+                [ZXCompressor decompressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
+                    if (data) {
+                        [data writeToFile:data2 atomically:YES];
+                    }
+                }];
+            }
         }];
         
         //
