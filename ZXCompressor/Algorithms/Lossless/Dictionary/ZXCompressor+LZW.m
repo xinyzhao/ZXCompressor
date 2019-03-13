@@ -135,12 +135,8 @@
     uint32_t tableSize = dictionarySize < LZW_DICT_SIZE ? LZW_DICT_SIZE : dictionarySize;
     // 编码字节数, 根据词典的大小(tableSize)决定
     uint32_t codeSize = size_in_bytes(tableSize);
-    // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
     // 前缀缓冲区大小(动态分配)
     uint32_t prefixSize = 2;
-    // 符号缓冲区
-    uint8_t symbol = 0;
     // 前缀缓冲区
     uint8_t *prefix = malloc(prefixSize);
     memset(prefix, 0, prefixSize);
@@ -149,14 +145,12 @@
     // 初始化字典
     hashtable table = hashtable_new(tableSize);
     for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
-        hashtable_set_node(table, &c, codeSize, &c, symbolSize);
+        hashtable_set_node(table, &c, codeSize, &c, 1);
     }
     // 字典编码
     uint32_t code;
     uint32_t code_nbo = 0; // 网络字节序
     uint32_t code_next = LZW_CODE_BASE; // 下个编码
-    // 上个编码
-    hashnode prev = NULL;
     // 开始处理数据
     for (uint32_t offset = 0; ; offset += codeSize) {
         // 读入数据
@@ -170,17 +164,19 @@
         network_to_host_byte_order(&code, &code_nbo, codeSize);
         // 查找编码
         hashnode node = hashtable_get_node(table, &code, codeSize);
-        if (node) {
+        // 跳过Root(第一个)编码
+        if (length > 0) {
             // 扩展前缀缓冲区
-            if (length + node->value->length > prefixSize) {
-                prefixSize = length + node->value->length;
+            if (length + 1 > prefixSize) {
+                prefixSize *= 2;
                 prefix = realloc(prefix, prefixSize);
             }
             // 复制到前缀缓冲区
-            memcpy(&prefix[length++], node->value->data, node->value->length);
-        }
-        // 生成词典
-        if (prev) {
+            if (node) {
+                memcpy(&prefix[length++], node->value->data, 1);
+            } else {
+                memcpy(&prefix[length++], &prefix[0], 1);
+            }
             // 加入词典
             if (table->used < table->size) {
                 hashtable_set_node(table, &code_next, codeSize, prefix, length);
@@ -190,20 +186,28 @@
                 hashtable_free(table);
                 table = hashtable_new(tableSize);
                 for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
-                    hashtable_set_node(table, &c, codeSize, &c, symbolSize);
+                    hashtable_set_node(table, &c, codeSize, &c, 1);
                 }
                 code_next = LZW_CODE_BASE;
             }
-            // 重置前缀缓冲区
-            memset(prefix, 0, prefixSize);
-            length = 0;
-            // 复制符号到前缀缓冲区
-            memcpy(&prefix[length], node->value->data, node->value->length);
-            length += node->value->length;
         }
-        // 保存编码
-        prev = node;
-        // 输出符号
+        // 重新查找
+        if (node == NULL) {
+            node = hashtable_get_node(table, &code, codeSize);
+            assert(node);
+        }
+        // 扩展前缀缓冲区
+        if (node->value->length > prefixSize) {
+            prefixSize = MAX(prefixSize * 2, node->value->length + node->value->length % 2);
+            prefix = realloc(prefix, prefixSize);
+        }
+        // 重置前缀缓冲区
+        memset(prefix, 0, prefixSize);
+        length = 0;
+        // 复制到前缀缓冲区
+        memcpy(&prefix[length], node->value->data, node->value->length);
+        length += node->value->length;
+        // 输出数据
         if (writeBuffer) {
             writeBuffer(node->value->data, node->value->length);
         }

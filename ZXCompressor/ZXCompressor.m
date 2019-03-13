@@ -33,7 +33,7 @@
 #define LZ77_WINDOW_SIZE(n)     (n < 4096 ? 256 : 4096)
 #define LZ77_BUFFER_SIZE(n)     (256)
 #define LZ78_DICT_SIZE(n)       (256)
-#define LZW_DICT_SIZE(n)        (4096)
+#define LZW_DICT_SIZE(n)        (n < 4096 ? 4096 : 65536)
 
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion {
     // 输入数据

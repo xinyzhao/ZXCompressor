@@ -32,7 +32,7 @@
     ZXCAlgorithm algorithm = kZXCAlgorithmLZW;
     NSString *prefix = @"lzw";
     //
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 6; i++) {
         NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", i];
         //
         NSData *data = [[NSData alloc] initWithContentsOfFile:path];
@@ -49,19 +49,16 @@
                 }];
             }
         }];
-        
-        //
-//        NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, i];
-//        NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, i];
-//        [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
-//            if (error == nil) {
-//                [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
-//                    if (error == nil) {
-//                    }
-//                }];
-//            }
-//        }];
-        
+        NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, i];
+        NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, i];
+        [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
+            if (error == nil) {
+                [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
+                    if (error == nil) {
+                    }
+                }];
+            }
+        }];
     }
 }
 
