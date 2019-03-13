@@ -39,9 +39,6 @@
     uint32_t symbolSize = sizeof(uint8_t);
     // 短语字节数(编码后的字节数)
     uint32_t phraseSize = offsetSize + lengthSize + symbolSize;
-#ifdef DEBUG
-    NSLog(@"[LZ77] offset/%d bytes, length/%d bytes, symbol/%d bytes", offsetSize, lengthSize, symbolSize);
-#endif
     // 初始化滑动窗口+前向缓冲区+短语编码区
     uint8_t *window = malloc(windowSize);
     uint8_t *buffer = malloc(bufferSize);
@@ -113,9 +110,6 @@
     uint32_t symbolSize = sizeof(uint8_t);
     // 短语字节数(编码后的字节数)
     uint32_t phraseSize = offsetSize + lengthSize + symbolSize;
-#ifdef DEBUG
-    NSLog(@"[LZ77] offset/%d bytes, length/%d bytes, symbol/%d bytes", offsetSize, lengthSize, symbolSize);
-#endif
     // 初始化滑动窗口+前向缓冲区+短语编码区
     uint8_t *window = malloc(windowSize);
     uint8_t *buffer = malloc(bufferSize);

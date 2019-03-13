@@ -26,7 +26,7 @@
 
 /* ZXCAlgorithm */
 typedef enum {
-    kZXCAlgorithmLZ77, // Lempel–Ziv 1977
+    kZXCAlgorithmLZ77 = 0, // Lempel–Ziv 1977
     kZXCAlgorithmLZSS, // Lempel–Ziv–Storer–Szymanski
     
     kZXCAlgorithmLZ78, // Lempel–Ziv 1978

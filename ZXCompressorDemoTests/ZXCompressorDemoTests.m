@@ -29,36 +29,25 @@
 - (void)testExample {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    ZXCAlgorithm algorithm = kZXCAlgorithmLZW;
-    NSString *prefix = @"lzw";
-    //
-    for (int i = 0; i < 6; i++) {
-        NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", i];
-        //
-        NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-        [ZXCompressor compressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-            if (data) {
-                NSString *data1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d+.txt", prefix, i];
-                [data writeToFile:data1 atomically:YES];
-                //
-                NSString *data2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_data_%d-.txt", prefix, i];
-                [ZXCompressor decompressData:data usingAlgorithm:algorithm completion:^(NSData *data) {
-                    if (data) {
-                        [data writeToFile:data2 atomically:YES];
-                    }
-                }];
-            }
-        }];
-        NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, i];
-        NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, i];
-        [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
-            if (error == nil) {
-                [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
-                    if (error == nil) {
-                    }
-                }];
-            }
-        }];
+    NSArray *algorithms = @[@(kZXCAlgorithmLZ77), @(kZXCAlgorithmLZ78), @(kZXCAlgorithmLZSS), @(kZXCAlgorithmLZW)];
+    NSArray *prefixes = @[@"lz77", @"lz78", @"lzss", @"lzw"];
+    for (int i = 0; i < algorithms.count; i++) {
+        ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
+        NSString *prefix = prefixes[i];
+        for (int j = 0; j < 6; j++) {
+            NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
+            NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
+            NSString *file2 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d-.txt", prefix, j];
+            [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
+                if (error == nil) {
+                    [ZXCompressor decompressFileAtPath:file1 toPath:file2 usingAlgorithm:algorithm completion:^(NSError *error) {
+                        if (error) {
+                            NSLog(@"%@", error.localizedDescription);
+                        }
+                    }];
+                }
+            }];
+        }
     }
 }
 
