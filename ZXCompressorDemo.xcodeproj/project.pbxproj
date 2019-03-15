@@ -159,8 +159,8 @@
 		70D8758F2230F728000007D6 /* ZXCompressor */ = {
 			isa = PBXGroup;
 			children = (
-				70FF9BB4223612650033DEA1 /* Hash */,
 				70D875912230F728000007D6 /* Algorithms */,
+				70FF9BB4223612650033DEA1 /* Hashtable */,
 				70D875A82230F728000007D6 /* ZXCompressor.h */,
 				70D875902230F728000007D6 /* ZXCompressor.m */,
 			);
@@ -226,7 +226,7 @@
 			path = Dictionary;
 			sourceTree = "<group>";
 		};
-		70FF9BB4223612650033DEA1 /* Hash */ = {
+		70FF9BB4223612650033DEA1 /* Hashtable */ = {
 			isa = PBXGroup;
 			children = (
 				70FF9BB5223612790033DEA1 /* hash.h */,
@@ -234,7 +234,7 @@
 				70FF9BB9223616D30033DEA1 /* hashtable.h */,
 				70FF9BBA223616D30033DEA1 /* hashtable.c */,
 			);
-			path = Hash;
+			path = Hashtable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -30,10 +30,12 @@
 
 @implementation ZXCompressor
 
-#define LZ77_WINDOW_SIZE        4096
+#define LZ77_WINDOW_SIZE        256
 #define LZ77_BUFFER_SIZE        256
-#define LZ78_DICT_SIZE          4096
-#define LZW_DICT_SIZE           4096
+#define LZSS_WINDOW_SIZE        4096
+#define LZSS_BUFFER_SIZE        256
+#define LZ78_DICT_SIZE          65536
+#define LZW_DICT_SIZE           65536
 
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion {
     // 输入数据
@@ -65,8 +67,8 @@
         }
         case kZXCAlgorithmLZSS:
         {
-            [ZXCompressor compressUsingLZSS:LZ77_WINDOW_SIZE
-                                 bufferSize:LZ77_BUFFER_SIZE
+            [ZXCompressor compressUsingLZSS:LZSS_WINDOW_SIZE
+                                 bufferSize:LZSS_BUFFER_SIZE
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                      uint32_t bufSize = MIN(length, inputSize - offset);
                                      memcpy(&buffer[0], &input[offset], bufSize);

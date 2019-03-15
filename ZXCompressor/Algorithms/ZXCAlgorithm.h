@@ -42,6 +42,24 @@ typedef enum {
 } ZXCAlgorithm;
 
 /**
+ 获取指定二进制位的值
+
+ @param bits 指针
+ @param pos 位置
+ @return 0 或 1
+ */
+extern int bitwise_get(const unsigned char *bits, int pos);
+
+/**
+ 设置指定二进制位的值
+
+ @param bits 指针
+ @param pos 位置
+ @param value 值，0 或 1
+ */
+extern void bitwise_set(unsigned char *bits, int pos, int value);
+
+/**
  需要多少二进制位(bits)才能表示指定的大小(Size)
  
  @param size 指定的大小(bytes)

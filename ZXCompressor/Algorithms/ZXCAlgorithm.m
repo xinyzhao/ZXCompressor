@@ -24,6 +24,27 @@
 
 #import "ZXCAlgorithm.h"
 
+int bitwise_get(const unsigned char *bits, int pos) {
+    unsigned char mask = 0x80;
+    for (int i = 0; i < (pos % 8); i++) {
+        mask = mask >> 1;
+    }
+    return (((mask & bits[(int)(pos / 8)]) == mask) ? 1 : 0);
+}
+
+void bitwise_set(unsigned char *bits, int pos, int value) {
+    unsigned char mask = 0x80;
+    for (int i = 0; i < (pos % 8); i++) {
+        mask = mask >> 1;
+    }
+    if (value) {
+        bits[pos/8] = bits[pos/8] | mask;
+    } else {
+        bits[pos/8] = bits[pos/8] & (~mask);
+    }
+    return;
+}
+
 uint32_t size_in_bits(uint32_t size) {
     return log(size) / log(2);
 }
