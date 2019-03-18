@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ZXCompressor.h"
-#import "ZXCompressor+Huffman.h"
+#import "huffman.h"
 
 @interface ZXCompressorDemoTests : XCTestCase
 

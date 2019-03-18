@@ -26,5 +26,23 @@
 #define huffman_h
 
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef struct huffman_tree {
+    struct huffman_tree *parent;
+    struct huffman_tree *lchild;
+    struct huffman_tree *rchild;
+    unsigned char symbol;
+    unsigned int weight; //freq
+} huffman_tree, huffman_node, huffman_leaf;
+
+typedef struct huffman_code {
+    unsigned char symbol;
+    unsigned char code;
+    unsigned char size;
+} huffman_code;
+
+
+extern void huffman_build_tree(void);
 
 #endif /* huffman_h */

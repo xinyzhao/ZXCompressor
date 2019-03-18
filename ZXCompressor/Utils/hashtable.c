@@ -46,7 +46,6 @@ void hashdata_free(hashdata * data) {
             data->data = NULL;
         }
         free(data);
-        data = NULL;
     }
 }
 
@@ -69,7 +68,6 @@ void hashnode_free(hashnode * node) {
             node->value = NULL;
         }
         free(node);
-        node = NULL;
     }
 }
 
@@ -110,7 +108,6 @@ void hashtable_free(hashtable * table) {
             table->node = NULL;
         }
         free(table);
-        table = NULL;
     }
 }
 
