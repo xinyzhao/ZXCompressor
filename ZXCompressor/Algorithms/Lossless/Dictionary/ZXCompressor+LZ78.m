@@ -49,7 +49,7 @@
     // 前缀缓冲区当前长度
     uint32_t length = 0; // for prefix
     // 初始化字典
-    hashtable table = hashtable_new(tableSize);
+    hashtable * table = hashtable_new(tableSize);
     // 字典编码
     uint32_t code;
     uint32_t code_nbo = 0; // 网络字节序
@@ -76,7 +76,7 @@
         memcpy(&prefix[length++], &symbol, symbolSize);
         // 查找编码
         code = 0;
-        hashnode node = hashtable_get_node(table, prefix, length);
+        hashnode * node = hashtable_get_node(table, prefix, length);
         if (node) {
             memcpy(&code, node->value->data, node->value->length);
         }
@@ -143,7 +143,7 @@
     // 输出缓冲区当前长度
     uint32_t length = 0; // for output
     // 初始化字典
-    hashtable table = hashtable_new(tableSize);
+    hashtable * table = hashtable_new(tableSize);
     // 字典编码
     uint32_t code;
     uint32_t code_nbo = 0; // 网络字节序
@@ -168,7 +168,7 @@
         length = 0;
         // 查找编码
         if (code > 0) {
-            hashnode node = hashtable_get_node(table, &code, codeSize);
+            hashnode * node = hashtable_get_node(table, &code, codeSize);
             if (node) {
                 // 复制到解码区
                 memcpy(&output[length], node->value->data, node->value->length);

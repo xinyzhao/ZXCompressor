@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702A1543223F94B700C38B55 /* pqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1542223F94B700C38B55 /* pqueue.c */; };
+		702A1544223F94B700C38B55 /* pqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1542223F94B700C38B55 /* pqueue.c */; };
+		702A1547223FA6E300C38B55 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1546223FA6E300C38B55 /* huffman.c */; };
+		702A1548223FA6E300C38B55 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1546223FA6E300C38B55 /* huffman.c */; };
 		70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D874FA2230DBF4000007D6 /* AppDelegate.m */; };
 		70D874FE2230DBF4000007D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D874FD2230DBF4000007D6 /* ViewController.m */; };
 		70D875012230DBF4000007D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D874FF2230DBF4000007D6 /* Main.storyboard */; };
@@ -53,6 +57,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		702A1541223F94B700C38B55 /* pqueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pqueue.h; sourceTree = "<group>"; };
+		702A1542223F94B700C38B55 /* pqueue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pqueue.c; sourceTree = "<group>"; };
+		702A1545223FA6E300C38B55 /* huffman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
+		702A1546223FA6E300C38B55 /* huffman.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = huffman.c; sourceTree = "<group>"; };
 		70D874F62230DBF4000007D6 /* ZXCompressorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZXCompressorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D874F92230DBF4000007D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		70D874FA2230DBF4000007D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -160,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				70D875912230F728000007D6 /* Algorithms */,
-				70FF9BB4223612650033DEA1 /* Hashtable */,
+				70FF9BB4223612650033DEA1 /* Utils */,
 				70D875A82230F728000007D6 /* ZXCompressor.h */,
 				70D875902230F728000007D6 /* ZXCompressor.m */,
 			);
@@ -226,15 +234,19 @@
 			path = Dictionary;
 			sourceTree = "<group>";
 		};
-		70FF9BB4223612650033DEA1 /* Hashtable */ = {
+		70FF9BB4223612650033DEA1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				70FF9BB5223612790033DEA1 /* hash.h */,
 				70FF9BB6223612790033DEA1 /* hash.c */,
 				70FF9BB9223616D30033DEA1 /* hashtable.h */,
 				70FF9BBA223616D30033DEA1 /* hashtable.c */,
+				702A1545223FA6E300C38B55 /* huffman.h */,
+				702A1546223FA6E300C38B55 /* huffman.c */,
+				702A1541223F94B700C38B55 /* pqueue.h */,
+				702A1542223F94B700C38B55 /* pqueue.c */,
 			);
-			path = Hashtable;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70D875A92230F728000007D6 /* ZXCompressor.m in Sources */,
+				702A1547223FA6E300C38B55 /* huffman.c in Sources */,
 				70D875B52230F728000007D6 /* ZXCompressor+LZ78.m in Sources */,
 				70D874FE2230DBF4000007D6 /* ViewController.m in Sources */,
 				70D875BB2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */,
@@ -350,6 +363,7 @@
 				70D875B92230F728000007D6 /* ZXCompressor+LZSS.m in Sources */,
 				70FF9BB7223612790033DEA1 /* hash.c in Sources */,
 				70D875AB2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
+				702A1543223F94B700C38B55 /* pqueue.c in Sources */,
 				70D875AD2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */,
 				70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */,
 				70D875BF2230F775000007D6 /* ZXCAlgorithm.m in Sources */,
@@ -360,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				702A1544223F94B700C38B55 /* pqueue.c in Sources */,
 				70FF9BB8223612790033DEA1 /* hash.c in Sources */,
 				70D875BC2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */,
 				70FF9BBC223616D30033DEA1 /* hashtable.c in Sources */,
@@ -374,6 +389,7 @@
 				70D875B62230F728000007D6 /* ZXCompressor+LZ78.m in Sources */,
 				70D875AC2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
 				70D875132230DBF5000007D6 /* ZXCompressorDemoTests.m in Sources */,
+				702A1548223FA6E300C38B55 /* huffman.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

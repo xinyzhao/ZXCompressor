@@ -1,5 +1,5 @@
 //
-// hashtable.h
+// huffman.c
 //
 // Copyright (c) 2019 Zhao Xin (https://github.com/xinyzhao)
 //
@@ -22,39 +22,4 @@
 // THE SOFTWARE.
 //
 
-#ifndef hashtable_h
-#define hashtable_h
-
-#include <stdio.h>
-
-typedef struct hashdata_struct {
-    void *data;
-    int length;
-} *hashdata, _hashdata;
-
-typedef struct hashnode_struct {
-    struct hashdata_struct *key;
-    struct hashdata_struct *value;
-    struct hashnode_struct *next;
-} *hashnode, _hashnode;
-
-typedef struct hashtable_struct {
-    int size;
-    int used;
-    struct hashnode_struct *node;
-} *hashtable, _hashtable;
-
-extern hashdata hashdata_new(const void *data, int len);
-extern void hashdata_free(hashdata data);
-
-extern hashnode hashnode_new(const void *key, int key_len, const void *value, int val_len);
-extern void hashnode_free(hashnode node);
-extern void hashnode_set_key(hashnode node, const void *key, int key_len);
-extern void hashnode_set_value(hashnode node, const void *value, int val_len);
-
-extern hashtable hashtable_new(int size);
-extern void hashtable_free(hashtable table);
-extern void hashtable_set_node(hashtable table, const void *key, int key_len, const void *value, int val_len);
-extern hashnode hashtable_get_node(hashtable table, const void *key, int key_len);
-
-#endif /* hashtable_h */
+#include "huffman.h"

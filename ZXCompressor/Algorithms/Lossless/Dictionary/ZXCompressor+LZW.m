@@ -50,7 +50,7 @@
     // 前缀缓冲区当前长度
     uint32_t length = 0; // for prefix
     // 初始化字典
-    hashtable table = hashtable_new(tableSize);
+    hashtable * table = hashtable_new(tableSize);
     for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
         hashtable_set_node(table, &c, symbolSize, &c, codeSize);
     }
@@ -80,7 +80,7 @@
         memcpy(&prefix[length++], &symbol, symbolSize);
         // 查找编码
         code = 0;
-        hashnode node = hashtable_get_node(table, prefix, length);
+        hashnode * node = hashtable_get_node(table, prefix, length);
         if (node) {
             memcpy(&code, node->value->data, node->value->length);
         }
@@ -143,7 +143,7 @@
     // 前缀缓冲区当前长度
     uint32_t length = 0; // for prefix
     // 初始化字典
-    hashtable table = hashtable_new(tableSize);
+    hashtable * table = hashtable_new(tableSize);
     for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
         hashtable_set_node(table, &c, codeSize, &c, 1);
     }
@@ -163,7 +163,7 @@
         code = 0;
         network_to_host_byte_order(&code, &code_nbo, codeSize);
         // 查找编码
-        hashnode node = hashtable_get_node(table, &code, codeSize);
+        hashnode * node = hashtable_get_node(table, &code, codeSize);
         // 跳过Root(第一个)编码
         if (length > 0) {
             // 扩展前缀缓冲区
