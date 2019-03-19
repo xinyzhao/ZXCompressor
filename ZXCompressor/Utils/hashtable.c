@@ -25,9 +25,6 @@
 #include "hashtable.h"
 #include "hash.h"
 
-#include <stdlib.h>
-#include <string.h>
-
 hashdata * hashdata_new(const void *data, int len) {
     if (data && len > 0) {
         hashdata * hd = malloc(sizeof(hashdata));

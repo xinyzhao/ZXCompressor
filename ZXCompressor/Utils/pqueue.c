@@ -34,27 +34,27 @@ extern pqueue_heap * pqueue_heap_new(unsigned int size) {
 
 extern void pqueue_heap_free(pqueue_heap *heap) {
     if (heap) {
-        heap->used = 0;
-        heap->size = 0;
         if (heap->nodes) {
             free(heap->nodes);
             heap->nodes = NULL;
         }
+        heap->size = 0;
+        heap->used = 0;
         free(heap);
     }
 }
 
 void pqueue_heap_push(pqueue_heap *heap, int priority, void *data) {
-    if (heap->used + 1 >= heap->size) {
+    if (heap->used >= heap->size) {
         heap->size = heap->size ? heap->size * 2 : 4;
         heap->nodes = (pqueue_node *)realloc(heap->nodes, heap->size * sizeof (pqueue_node));
     }
-    int i = heap->used + 1;
-    int j = i / 2;
-    while (i > 1 && heap->nodes[j].priority > priority) {
+    int i = heap->used;
+    int j = (i - 1) / 2;
+    while (i > 0 && heap->nodes[j].priority > priority) {
         heap->nodes[i] = heap->nodes[j];
         i = j;
-        j = j / 2;
+        j = (j - 1) / 2;
     }
     heap->nodes[i].priority = priority;
     heap->nodes[i].data = data;
@@ -62,20 +62,18 @@ void pqueue_heap_push(pqueue_heap *heap, int priority, void *data) {
 }
 
 void * pqueue_heap_pop(pqueue_heap *heap) {
-    int i, j, k;
-    if (!heap->used) {
+    if (heap->used == 0) {
         return NULL;
     }
-    char *data = heap->nodes[1].data;
     
-    heap->nodes[1] = heap->nodes[heap->used];
-    
+    char *data = heap->nodes[0].data;
+    heap->nodes[0] = heap->nodes[heap->used - 1];
     heap->used--;
     
-    i = 1;
-    while (i != heap->used + 1) {
-        k = heap->used + 1;
-        j = 2 * i;
+    int i = 0, j, k;
+    while (i != heap->used) {
+        k = heap->used;
+        j = 2 * i + 1;
         if (j <= heap->used && heap->nodes[j].priority < heap->nodes[k].priority) {
             k = j;
         }
@@ -85,5 +83,6 @@ void * pqueue_heap_pop(pqueue_heap *heap) {
         heap->nodes[i] = heap->nodes[k];
         i = k;
     }
+    
     return data;
 }

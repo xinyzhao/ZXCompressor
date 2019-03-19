@@ -6,7 +6,6 @@
 #ifndef pqueue_h
 #define pqueue_h
 
-#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct pqueue_node {

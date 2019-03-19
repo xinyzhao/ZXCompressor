@@ -23,6 +23,7 @@
 //
 
 #import "ZXCompressor+LZ77.h"
+#import "bitbyte.h"
 
 @implementation ZXCompressor (LZ77)
 
@@ -59,7 +60,7 @@
         // 查找短语
         offset = windowSize > cursor ? windowSize - cursor : 0;
         uint32_t winSize = windowSize - offset;
-        symbol = matching_window_buffer(&window[offset], winSize, buffer, bufSize, &offset, &length);
+        symbol = search_bytes(&window[offset], winSize, buffer, bufSize, &offset, &length);
         // 转换偏移量相对于前向缓冲区反向
         if (length > 0) {
             offset = winSize - offset;

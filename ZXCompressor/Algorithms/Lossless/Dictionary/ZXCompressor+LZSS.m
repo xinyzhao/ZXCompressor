@@ -23,7 +23,7 @@
 //
 
 #import "ZXCompressor+LZSS.h"
-#import "ZXCompressor+LZ77.h"
+#import "bitbyte.h"
 
 @implementation ZXCompressor (LZSS)
 
@@ -69,7 +69,7 @@
         // 查找短语
         uint32_t winCursor = windowSize > cursor ? windowSize - cursor : 0;
         uint32_t winSize = windowSize - winCursor;
-        matching_window_buffer(&window[winCursor], winSize, buffer, bufSize, &offset, &length);
+        search_bytes(&window[winCursor], winSize, buffer, bufSize, &offset, &length);
         // 设置短语数据
         if (length < offsetSize + lengthSize) {
             // 不用编码，复制符号

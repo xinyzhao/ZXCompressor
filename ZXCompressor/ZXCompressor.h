@@ -22,7 +22,24 @@
 // THE SOFTWARE.
 //
 
-#import "ZXCAlgorithm.h"
+#import <Foundation/Foundation.h>
+
+/* ZXCAlgorithm */
+typedef enum {
+    kZXCAlgorithmLZ77 = 0, // Lempel–Ziv 1977
+    kZXCAlgorithmLZSS, // Lempel–Ziv–Storer–Szymanski
+    
+    kZXCAlgorithmLZ78, // Lempel–Ziv 1978
+    kZXCAlgorithmLZW, // Lempel–Ziv–Welch
+    
+    kZXCAlgorithmArithmetic, // Arithmetic coding
+    kZXCAlgorithmHuffman, // Huffman coding
+    
+    kZXCAlgorithmBWT, // Burrows–Wheeler transform
+    kZXCAlgorithmPPM, // Prediction by partial matching
+    kZXCAlgorithmRLE, // Run-length encoding
+    
+} ZXCAlgorithm;
 
 /**
  ZXCompressor

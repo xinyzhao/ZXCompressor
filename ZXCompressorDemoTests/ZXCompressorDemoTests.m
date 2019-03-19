@@ -49,7 +49,11 @@
 //            }];
 //        }
 //    }
-    huffman_build_tree();
+    const int size = 5;
+    char symbols[size] = {'A', 'B', 'C', 'D', 'E'};
+    int weights[size] = {8, 10, 3, 4, 5};
+    huffman_tree_build(symbols, weights, size);
+    // A:10, B:11, C:010, D:011, E:00
 }
 
 - (void)testPerformanceExample {

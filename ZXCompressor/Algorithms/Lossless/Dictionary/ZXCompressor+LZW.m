@@ -23,6 +23,7 @@
 //
 
 #import "ZXCompressor+LZW.h"
+#import "bitbyte.h"
 #import "hashtable.h"
 
 @implementation ZXCompressor (LZW)

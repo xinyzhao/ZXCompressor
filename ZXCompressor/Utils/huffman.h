@@ -27,22 +27,34 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "pqueue.h"
 
-typedef struct huffman_tree {
-    struct huffman_tree *parent;
-    struct huffman_tree *lchild;
-    struct huffman_tree *rchild;
-    unsigned char symbol;
-    unsigned int weight; //freq
-} huffman_tree, huffman_node, huffman_leaf;
-
+/* huffman code */
 typedef struct huffman_code {
-    unsigned char symbol;
-    unsigned char code;
-    unsigned char size;
+    uint8_t *bits;
+    uint8_t size;
+    uint8_t used;
 } huffman_code;
 
+/* huffman tree */
+typedef struct huffman_node {
+    struct huffman_node *parent;
+    struct huffman_node *lchild;
+    struct huffman_node *rchild;
+    uint8_t symbol;
+    int weight; //freq
+    struct huffman_code *code;
+} huffman_node;
 
-extern void huffman_build_tree(void);
+extern huffman_code * huffman_code_new(uint8_t size);
+extern void huffman_code_free(huffman_code *code);
+extern void huffman_code_next(huffman_code *code, int state);
+
+extern huffman_node * huffman_node_new(void);
+extern void huffman_node_free(huffman_node *node);
+
+extern void huffman_tree_build(const char *symbols, const int *weights, const int size);
+extern void huffman_code_build(huffman_node *node, huffman_code *code);
 
 #endif /* huffman_h */

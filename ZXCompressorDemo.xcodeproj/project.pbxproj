@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		700521D722409ED900B4B811 /* bitbyte.c in Sources */ = {isa = PBXBuildFile; fileRef = 700521D622409ED900B4B811 /* bitbyte.c */; };
+		700521D822409ED900B4B811 /* bitbyte.c in Sources */ = {isa = PBXBuildFile; fileRef = 700521D622409ED900B4B811 /* bitbyte.c */; };
 		702A1543223F94B700C38B55 /* pqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1542223F94B700C38B55 /* pqueue.c */; };
 		702A1544223F94B700C38B55 /* pqueue.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1542223F94B700C38B55 /* pqueue.c */; };
 		702A1547223FA6E300C38B55 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 702A1546223FA6E300C38B55 /* huffman.c */; };
@@ -38,8 +40,6 @@
 		70D875BA2230F728000007D6 /* ZXCompressor+LZSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A32230F728000007D6 /* ZXCompressor+LZSS.m */; };
 		70D875BB2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */; };
 		70D875BC2230F728000007D6 /* ZXCompressor+LZ77.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875A42230F728000007D6 /* ZXCompressor+LZ77.m */; };
-		70D875BF2230F775000007D6 /* ZXCAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875BE2230F775000007D6 /* ZXCAlgorithm.m */; };
-		70D875C02230F775000007D6 /* ZXCAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D875BE2230F775000007D6 /* ZXCAlgorithm.m */; };
 		70FF9BB7223612790033DEA1 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 70FF9BB6223612790033DEA1 /* hash.c */; };
 		70FF9BB8223612790033DEA1 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 70FF9BB6223612790033DEA1 /* hash.c */; };
 		70FF9BBB223616D30033DEA1 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 70FF9BBA223616D30033DEA1 /* hashtable.c */; };
@@ -57,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		700521D522409ED900B4B811 /* bitbyte.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitbyte.h; sourceTree = "<group>"; };
+		700521D622409ED900B4B811 /* bitbyte.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bitbyte.c; sourceTree = "<group>"; };
 		702A1541223F94B700C38B55 /* pqueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pqueue.h; sourceTree = "<group>"; };
 		702A1542223F94B700C38B55 /* pqueue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pqueue.c; sourceTree = "<group>"; };
 		702A1545223FA6E300C38B55 /* huffman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
@@ -94,8 +96,6 @@
 		70D875A62230F728000007D6 /* ZXCompressor+LZW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZW.h"; sourceTree = "<group>"; };
 		70D875A72230F728000007D6 /* ZXCompressor+LZSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZXCompressor+LZSS.h"; sourceTree = "<group>"; };
 		70D875A82230F728000007D6 /* ZXCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCompressor.h; sourceTree = "<group>"; };
-		70D875BD2230F775000007D6 /* ZXCAlgorithm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZXCAlgorithm.h; sourceTree = "<group>"; };
-		70D875BE2230F775000007D6 /* ZXCAlgorithm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZXCAlgorithm.m; sourceTree = "<group>"; };
 		70FF9BB5223612790033DEA1 /* hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash.h; sourceTree = "<group>"; };
 		70FF9BB6223612790033DEA1 /* hash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; };
 		70FF9BB9223616D30033DEA1 /* hashtable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
@@ -179,8 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				70D875922230F728000007D6 /* Lossless */,
-				70D875BD2230F775000007D6 /* ZXCAlgorithm.h */,
-				70D875BE2230F775000007D6 /* ZXCAlgorithm.m */,
 			);
 			path = Algorithms;
 			sourceTree = "<group>";
@@ -237,6 +235,8 @@
 		70FF9BB4223612650033DEA1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				700521D522409ED900B4B811 /* bitbyte.h */,
+				700521D622409ED900B4B811 /* bitbyte.c */,
 				70FF9BB5223612790033DEA1 /* hash.h */,
 				70FF9BB6223612790033DEA1 /* hash.c */,
 				70FF9BB9223616D30033DEA1 /* hashtable.h */,
@@ -362,11 +362,11 @@
 				70D875B72230F728000007D6 /* ZXCompressor+LZW.m in Sources */,
 				70D875B92230F728000007D6 /* ZXCompressor+LZSS.m in Sources */,
 				70FF9BB7223612790033DEA1 /* hash.c in Sources */,
+				700521D722409ED900B4B811 /* bitbyte.c in Sources */,
 				70D875AB2230F728000007D6 /* ZXCompressor+Arithmetic.m in Sources */,
 				702A1543223F94B700C38B55 /* pqueue.c in Sources */,
 				70D875AD2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */,
 				70D874FB2230DBF4000007D6 /* AppDelegate.m in Sources */,
-				70D875BF2230F775000007D6 /* ZXCAlgorithm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,10 +380,10 @@
 				70FF9BBC223616D30033DEA1 /* hashtable.c in Sources */,
 				70D875B82230F728000007D6 /* ZXCompressor+LZW.m in Sources */,
 				70D875B02230F728000007D6 /* ZXCompressor+BWT.m in Sources */,
-				70D875C02230F775000007D6 /* ZXCAlgorithm.m in Sources */,
 				70D875AE2230F728000007D6 /* ZXCompressor+Huffman.m in Sources */,
 				70D875B22230F728000007D6 /* ZXCompressor+PPM.m in Sources */,
 				70D875BA2230F728000007D6 /* ZXCompressor+LZSS.m in Sources */,
+				700521D822409ED900B4B811 /* bitbyte.c in Sources */,
 				70D875B42230F728000007D6 /* ZXCompressor+RLE.m in Sources */,
 				70D875AA2230F728000007D6 /* ZXCompressor.m in Sources */,
 				70D875B62230F728000007D6 /* ZXCompressor+LZ78.m in Sources */,

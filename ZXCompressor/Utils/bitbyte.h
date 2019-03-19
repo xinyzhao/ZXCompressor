@@ -1,5 +1,5 @@
 //
-// ZXCAlgorithm.h
+// bitbyte.h
 //
 // Copyright (c) 2019 Zhao Xin (https://github.com/xinyzhao)
 //
@@ -22,42 +22,29 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef bitbyte_h
+#define bitbyte_h
 
-/* ZXCAlgorithm */
-typedef enum {
-    kZXCAlgorithmLZ77 = 0, // Lempel–Ziv 1977
-    kZXCAlgorithmLZSS, // Lempel–Ziv–Storer–Szymanski
-    
-    kZXCAlgorithmLZ78, // Lempel–Ziv 1978
-    kZXCAlgorithmLZW, // Lempel–Ziv–Welch
-    
-    kZXCAlgorithmArithmetic, // Arithmetic coding
-    kZXCAlgorithmHuffman, // Huffman coding
-    
-    kZXCAlgorithmBWT, // Burrows–Wheeler transform
-    kZXCAlgorithmPPM, // Prediction by partial matching
-    kZXCAlgorithmRLE, // Run-length encoding
-    
-} ZXCAlgorithm;
+#include <math.h>
+#include <string.h>
 
 /**
  获取指定二进制位的值
-
+ 
  @param bits 指针
  @param pos 位置
- @return 0 或 1
+ @return 状态值，0 或 1
  */
-extern int bitwise_get(const unsigned char *bits, int pos);
+extern int bit_get(const uint8_t *bits, int pos);
 
 /**
  设置指定二进制位的值
-
+ 
  @param bits 指针
  @param pos 位置
- @param value 值，0 或 1
+ @param state 状态值，0 或 1
  */
-extern void bitwise_set(unsigned char *bits, int pos, int value);
+extern void bit_set(uint8_t *bits, int pos, int state);
 
 /**
  需要多少二进制位(bits)才能表示指定的大小(Size)
@@ -65,7 +52,7 @@ extern void bitwise_set(unsigned char *bits, int pos, int value);
  @param size 指定的大小(bytes)
  @return 二进制位数
  */
-extern uint32_t size_in_bits(uint32_t size);
+extern int size_in_bits(uint32_t size);
 
 /**
  需要多少字节(bytes)才能表示指定的大小(Size)
@@ -73,14 +60,14 @@ extern uint32_t size_in_bits(uint32_t size);
  @param size 指定的大小(bytes)
  @return 字节数量
  */
-extern uint32_t size_in_bytes(uint32_t size);
+extern int size_in_bytes(uint32_t size);
 
 /**
  获取主机字节序
-
+ 
  @return ture 为小端字节序(Little Endian), false 为大端字节序(Big Ending)
  */
-extern bool host_byte_order(void);
+extern int host_byte_order(void);
 
 /**
  主机字节序转换为网络字节序
@@ -89,7 +76,7 @@ extern bool host_byte_order(void);
  @param source 网络字节
  @param length 字节长度
  */
-extern void host_to_network_byte_order(void *target, void *source, int length);
+extern void host_to_network_byte_order(void *target, void *source, uint32_t length);
 
 /**
  网络字节序转换为主机字节序
@@ -98,18 +85,19 @@ extern void host_to_network_byte_order(void *target, void *source, int length);
  @param source 网络字节
  @param length 字节长度
  */
-extern void network_to_host_byte_order(void *target, void *source, int length);
+extern void network_to_host_byte_order(void *target, void *source, uint32_t length);
 
 /**
- 匹配符号(前向缓冲区)和短语(滑动窗口)
+ 在缓冲区(buffer)中搜索与字节流(bytes)最长的匹配(longest match)
  
- @param window 滑动窗口
- @param windowSize 滑动窗口大小
- @param buffer 前向缓冲区
- @param bufferSize 前向缓冲区大小
- @param offset 匹配成功后, 短语在滑动窗口中的偏移量, 否则为0
- @param length 匹配成功后, 短语的长度
- @return 返回下一个未匹配的符号
+ @param buffer 缓冲区
+ @param buffer_len 缓冲区长度
+ @param bytes 字节流
+ @param bytes_len 字节流长度
+ @param offset 搜索成功后，在缓冲区中的偏移量
+ @param length 搜索成功后，最大匹配长度，否则为0
+ @return 返回下一个未匹配的字节
  */
-extern uint8_t matching_window_buffer(const uint8_t *window, const uint32_t windowSize, const uint8_t *buffer, const uint32_t bufferSize, uint32_t *offset, uint32_t *length);
+extern char search_bytes(const uint8_t *buffer, const uint32_t buffer_len, const uint8_t *bytes, const uint32_t bytes_len, uint32_t *offset, uint32_t *length);
 
+#endif /* bitbyte_h */
