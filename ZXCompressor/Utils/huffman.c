@@ -77,7 +77,7 @@ void huffman_node_free(huffman_node *node) {
 }
 
 void huffman_tree_build(const char *symbols, const int *weights, const int size) {
-    //
+    // size
     int leaf_size = size;
     int tree_size = leaf_size * 2 - 1;
     // tree
@@ -117,16 +117,18 @@ void huffman_tree_build(const char *symbols, const int *weights, const int size)
 }
 
 void huffman_code_build(huffman_node *node, huffman_code *code) {
+    // right child is 0
     if (node->lchild) {
         huffman_code_next(code, 0);
         huffman_code_build(node->lchild, code);
     }
+    // right child is 1
     if (node->rchild) {
         huffman_code_next(code, 1);
         huffman_code_build(node->rchild, code);
     }
     // leaf node
-    if (node->lchild == NULL || node->rchild == NULL) {
+    if (node->lchild == NULL && node->rchild == NULL) {
         uint8_t size = code->size / 8 + (code->size % 8 ? 1 : 0);
         node->code = huffman_code_new(size);
         memcpy(node->code->bits, code->bits, size);
