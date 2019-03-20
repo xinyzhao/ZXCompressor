@@ -29,6 +29,22 @@
 #include <string.h>
 
 /**
+ Convert bits to (8-bit) bytes
+
+ @param bits Number of bits
+ @return Number of bytes
+ */
+#define BITS_TO_BYTES(bits) (bits / 8 + (bits % 8 ? 1 : 0))
+
+/**
+ Convert (8-bit) bytes to bits
+
+ @param bytes Number of bytes
+ @return Number of bits
+ */
+#define BYTES_TO_BITS(bytes) (bytes * 8)
+
+/**
  获取指定二进制位的值
  
  @param bits 指针

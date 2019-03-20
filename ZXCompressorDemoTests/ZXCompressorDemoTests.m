@@ -52,7 +52,9 @@
     const int size = 5;
     char symbols[size] = {'A', 'B', 'C', 'D', 'E'};
     int weights[size] = {8, 10, 3, 4, 5};
-    huffman_tree_build(symbols, weights, size);
+    huffman_node *tree = NULL;
+    huffman_tree_build(tree, symbols, weights, size);
+    free(tree);
     // A:10, B:11, C:010, D:011, E:00
 }
 

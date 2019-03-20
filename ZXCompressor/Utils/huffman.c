@@ -51,11 +51,11 @@ void huffman_code_free(huffman_code *code) {
     }
 }
 
-void huffman_code_next(huffman_code *code, int state) {
+void huffman_code_plus(huffman_code *code, int state) {
     if (code->used + 1 > code->size) {
-        uint8_t old = code->size / 8 + (code->size % 8 ? 1 : 0);
+        uint8_t old = BITS_TO_BYTES(code->size);
         code->size = code->size ? code->size * 2 : 8;
-        uint8_t new = code->size / 8 + (code->size % 8 ? 1 : 0);
+        uint8_t new = BITS_TO_BYTES(code->size);
         code->bits = realloc(code->bits, new);
         memset(&code->bits[old], 0, new - old);
     }
@@ -76,12 +76,16 @@ void huffman_node_free(huffman_node *node) {
     }
 }
 
-void huffman_tree_build(const char *symbols, const int *weights, const int size) {
+void huffman_tree_build(huffman_node *tree, const char *symbols, const int *weights, const int size) {
     // size
     int leaf_size = size;
     int tree_size = leaf_size * 2 - 1;
     // tree
-    huffman_node *tree = malloc(sizeof(huffman_node) * tree_size);
+    if (tree) {
+        tree = realloc(tree, sizeof(huffman_node) * tree_size);
+    } else {
+        tree = malloc(sizeof(huffman_node) * tree_size);
+    }
     memset(tree, 0, sizeof(huffman_node) * tree_size);
     // freq
     for (int i = 0; i < leaf_size; i++) {
@@ -113,23 +117,23 @@ void huffman_tree_build(const char *symbols, const int *weights, const int size)
     // free
     huffman_code_free(code);
     pqueue_heap_free(heap);
-    free(tree);
+    //free(tree);
 }
 
 void huffman_code_build(huffman_node *node, huffman_code *code) {
     // right child is 0
     if (node->lchild) {
-        huffman_code_next(code, 0);
+        huffman_code_plus(code, 0);
         huffman_code_build(node->lchild, code);
     }
     // right child is 1
     if (node->rchild) {
-        huffman_code_next(code, 1);
+        huffman_code_plus(code, 1);
         huffman_code_build(node->rchild, code);
     }
     // leaf node
     if (node->lchild == NULL && node->rchild == NULL) {
-        uint8_t size = code->size / 8 + (code->size % 8 ? 1 : 0);
+        uint8_t size = BITS_TO_BYTES(code->size);
         node->code = huffman_code_new(size);
         memcpy(node->code->bits, code->bits, size);
         node->code->used = code->used;
@@ -140,7 +144,7 @@ void huffman_code_build(huffman_node *node, huffman_code *code) {
         }
         printf("\n");
     }
-    // recursive out
+    // out recursive
     code->used--;
 }
 

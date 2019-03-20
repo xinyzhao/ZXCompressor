@@ -49,12 +49,12 @@ typedef struct huffman_node {
 
 extern huffman_code * huffman_code_new(uint8_t size);
 extern void huffman_code_free(huffman_code *code);
-extern void huffman_code_next(huffman_code *code, int state);
+extern void huffman_code_plus(huffman_code *code, int state);
 
 extern huffman_node * huffman_node_new(void);
 extern void huffman_node_free(huffman_node *node);
 
-extern void huffman_tree_build(const char *symbols, const int *weights, const int size);
+extern void huffman_tree_build(huffman_node *tree, const char *symbols, const int *weights, const int size);
 extern void huffman_code_build(huffman_node *node, huffman_code *code);
 
 #endif /* huffman_h */
