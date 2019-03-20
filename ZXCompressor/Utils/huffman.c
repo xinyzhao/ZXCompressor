@@ -25,7 +25,43 @@
 #include "huffman.h"
 #include "bitbyte.h"
 
-huffman_code * huffman_code_new(uint8_t size) {
+huffman_data * huffman_data_new(unsigned char symbol, int weight) {
+    huffman_data *data = malloc(sizeof(huffman_data));
+    data->symbol = symbol;
+    data->weight = weight;
+    return data;
+}
+
+void huffman_data_free(huffman_data *data) {
+    if (data) {
+        free(data);
+    }
+}
+
+huffman_file * huffman_file_new(int file_size, int data_size) {
+    huffman_file *file = malloc(sizeof(huffman_file));
+    file->file_size = file_size;
+    file->data_size = data_size;
+    if (data_size) {
+        file->data = malloc(sizeof(huffman_data) * data_size);
+        memset(file->data, 0, sizeof(huffman_data) * data_size);
+    } else {
+        file->data = NULL;
+    }
+    return file;
+}
+
+void huffman_file_free(huffman_file *file) {
+    if (file) {
+        if (file->data) {
+            free(file->data);
+            file->data = NULL;
+        }
+        free(file);
+    }
+}
+
+huffman_code * huffman_code_new(int size) {
     huffman_code *code = malloc(sizeof(huffman_code));
     if (code) {
         code->size = size;
@@ -51,53 +87,97 @@ void huffman_code_free(huffman_code *code) {
     }
 }
 
-void huffman_code_plus(huffman_code *code, int state) {
+void huffman_code_push(huffman_code *code, int state) {
     if (code->used + 1 > code->size) {
-        uint8_t old = BITS_TO_BYTES(code->size);
+        int old = BITS_TO_BYTES(code->size);
         code->size = code->size ? code->size * 2 : 8;
-        uint8_t new = BITS_TO_BYTES(code->size);
+        int new = BITS_TO_BYTES(code->size);
         code->bits = realloc(code->bits, new);
         memset(&code->bits[old], 0, new - old);
     }
     bit_set(code->bits, code->used++, state);
 }
 
-huffman_node * huffman_node_new(void) {
-    return NULL;
+int huffman_code_pop(huffman_code *code) {
+    if (code && code->bits && code->used) {
+        return bit_get(code->bits, --code->used);
+    }
+    return -1;
+}
+
+
+void huffman_code_make(huffman_node *node, huffman_code *code) {
+    // right child is 0
+    if (node->lchild) {
+        huffman_code_push(code, 0);
+        huffman_code_make(node->lchild, code);
+    }
+    // right child is 1
+    if (node->rchild) {
+        huffman_code_push(code, 1);
+        huffman_code_make(node->rchild, code);
+    }
+    // leaf node
+    if (node->lchild == NULL && node->rchild == NULL) {
+        node->code = huffman_code_new(code->size);
+        int size = BITS_TO_BYTES(code->size);
+        memcpy(node->code->bits, code->bits, size);
+        node->code->used = code->used;
+        // printf
+#ifdef DEBUG
+        if (node->data->weight > 0) {
+            printf("0x%02X:", node->data->symbol);
+            for (int i = 0; i < code->used; i++) {
+                printf("%d", bit_get(code->bits, i));
+            }
+            printf("\n");
+        }
+#endif
+    }
+    // out recursive
+    code->used--;
+}
+
+huffman_node * huffman_node_new(huffman_data *data) {
+    huffman_node *node = malloc(sizeof(huffman_node));
+    node->data = malloc(sizeof(huffman_data));
+    memset(node->data, 0, sizeof(huffman_data));
+    node->code = malloc(sizeof(huffman_code));
+    memset(node->code, 0, sizeof(huffman_code));
+    if (data) {
+        memcpy(node->data, node->data, sizeof(huffman_data));
+    }
+    return node;
 }
 
 void huffman_node_free(huffman_node *node) {
     if (node) {
+        if (node->data) {
+            free(node->data);
+            node->data = NULL;
+        }
         if (node->code) {
-            huffman_code_free(node->code);
+            free(node->code);
             node->code = NULL;
         }
         free(node);
     }
 }
 
-void huffman_tree_build(huffman_node *tree, const char *symbols, const int *weights, const int size) {
+huffman_tree * huffman_tree_new(huffman_data *data, const int size) {
     // size
     int leaf_size = size;
     int tree_size = leaf_size * 2 - 1;
     // tree
-    if (tree) {
-        tree = realloc(tree, sizeof(huffman_node) * tree_size);
-    } else {
-        tree = malloc(sizeof(huffman_node) * tree_size);
-    }
-    memset(tree, 0, sizeof(huffman_node) * tree_size);
-    // freq
-    for (int i = 0; i < leaf_size; i++) {
-        huffman_node *leaf = &tree[i];
-        leaf->symbol = symbols[i];
-        leaf->weight = weights[i];
-    }
+    huffman_tree *tree = malloc(sizeof(huffman_tree) * tree_size);
+    memset(tree, 0, sizeof(huffman_tree) * tree_size);
     // leaf
     pqueue_heap *heap = pqueue_heap_new(tree_size);
     for (int i = 0; i < leaf_size; i++) {
         huffman_node *node = &tree[i];
-        pqueue_heap_push(heap, node->weight, node);
+        huffman_data *_data = &data[i];
+        node->data = huffman_data_new(_data->symbol, _data->weight);
+        pqueue_heap_push(heap, node->data->weight, node);
     }
     // node
     for (int i = leaf_size; i < tree_size; i++) {
@@ -107,44 +187,21 @@ void huffman_tree_build(huffman_node *tree, const char *symbols, const int *weig
         node->lchild->parent = node;
         node->rchild = pqueue_heap_pop(heap);
         node->rchild->parent = node;
-        node->weight = node->lchild->weight + node->rchild->weight;
-        pqueue_heap_push(heap, node->weight, node);
+        node->data = huffman_data_new(0, node->lchild->data->weight + node->rchild->data->weight);
+        pqueue_heap_push(heap, node->data->weight, node);
     }
     // code
     huffman_node *node = pqueue_heap_pop(heap);
     huffman_code *code = huffman_code_new(leaf_size);
-    huffman_code_build(node, code);
+    huffman_code_make(node, code);
     // free
     huffman_code_free(code);
     pqueue_heap_free(heap);
-    //free(tree);
+    //
+    return tree;
 }
 
-void huffman_code_build(huffman_node *node, huffman_code *code) {
-    // right child is 0
-    if (node->lchild) {
-        huffman_code_plus(code, 0);
-        huffman_code_build(node->lchild, code);
-    }
-    // right child is 1
-    if (node->rchild) {
-        huffman_code_plus(code, 1);
-        huffman_code_build(node->rchild, code);
-    }
-    // leaf node
-    if (node->lchild == NULL && node->rchild == NULL) {
-        uint8_t size = BITS_TO_BYTES(code->size);
-        node->code = huffman_code_new(size);
-        memcpy(node->code->bits, code->bits, size);
-        node->code->used = code->used;
-        // printf
-        printf("%c\t", node->symbol);
-        for (int i = 0; i < code->used; i++) {
-            printf("%d", bit_get(code->bits, i));
-        }
-        printf("\n");
-    }
-    // out recursive
-    code->used--;
+void huffman_tree_free(huffman_tree *tree) {
+    huffman_node_free(tree);
 }
 

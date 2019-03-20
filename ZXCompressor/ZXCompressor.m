@@ -27,6 +27,7 @@
 #import "ZXCompressor+LZSS.h"
 #import "ZXCompressor+LZ78.h"
 #import "ZXCompressor+LZW.h"
+#import "ZXCompressor+Huffman.h"
 
 @implementation ZXCompressor
 
@@ -36,6 +37,7 @@
 #define LZSS_BUFFER_SIZE        256
 #define LZ78_DICT_SIZE          65536
 #define LZW_DICT_SIZE           65536
+#define HUFFMAN_BUFFER_SIZE     4096
 
 + (void)compressData:(NSData *)data usingAlgorithm:(ZXCAlgorithm)algorithm completion:(void(^)(NSData *data))completion {
     // 输入数据
@@ -51,7 +53,9 @@
                                  bufferSize:LZ77_BUFFER_SIZE
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                      uint32_t bufSize = MIN(length, inputSize - offset);
-                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     if (bufSize > 0) {
+                                         memcpy(&buffer[0], &input[offset], bufSize);
+                                     }
                                      return bufSize;
                                  } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                      [output appendBytes:buffer length:length];
@@ -71,7 +75,9 @@
                                  bufferSize:LZSS_BUFFER_SIZE
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                      uint32_t bufSize = MIN(length, inputSize - offset);
-                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     if (bufSize > 0) {
+                                         memcpy(&buffer[0], &input[offset], bufSize);
+                                     }
                                      return bufSize;
                                  } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                      [output appendBytes:buffer length:length];
@@ -90,7 +96,9 @@
             [ZXCompressor compressUsingLZ78:LZ78_DICT_SIZE
                                  readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                      uint32_t bufSize = MIN(length, inputSize - offset);
-                                     memcpy(&buffer[0], &input[offset], bufSize);
+                                     if (bufSize > 0) {
+                                         memcpy(&buffer[0], &input[offset], bufSize);
+                                     }
                                      return bufSize;
                                  } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                      [output appendBytes:buffer length:length];
@@ -109,7 +117,9 @@
             [ZXCompressor compressUsingLZW:LZW_DICT_SIZE
                                 readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                     uint32_t bufSize = MIN(length, inputSize - offset);
-                                    memcpy(&buffer[0], &input[offset], bufSize);
+                                    if (bufSize > 0) {
+                                        memcpy(&buffer[0], &input[offset], bufSize);
+                                    }
                                     return bufSize;
                                 } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                     [output appendBytes:buffer length:length];
@@ -121,6 +131,27 @@
                                         completion([output copy]);
                                     }
                                 }];
+            break;
+        }
+        case kZXCAlgorithmHuffman:
+        {
+            [ZXCompressor compressUsingHuffman:HUFFMAN_BUFFER_SIZE
+                                    readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                                        uint32_t bufSize = MIN(length, inputSize - offset);
+                                        if (bufSize > 0) {
+                                            memcpy(&buffer[0], &input[offset], bufSize);
+                                        }
+                                        return bufSize;
+                                    } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                                        [output appendBytes:buffer length:length];
+                                    } completion:^{
+#ifdef DEBUG
+                                        NSLog(@"[Huffman] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)output.length, (output.length / (double)inputSize) * 100, (int)(inputSize - output.length));
+#endif
+                                        if (completion) {
+                                            completion([output copy]);
+                                        }
+                                    }];
             break;
         }
         default:
@@ -165,9 +196,11 @@
                          bufferSize:LZ77_BUFFER_SIZE
                          readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                              uint32_t bufSize = MIN(length, inputSize - offset);
-                             [input seekToFileOffset:offset];
-                             NSData *data = [input readDataOfLength:bufSize];
-                             memcpy(buffer, data.bytes, bufSize);
+                             if (bufSize > 0) {
+                                 [input seekToFileOffset:offset];
+                                 NSData *data = [input readDataOfLength:bufSize];
+                                 memcpy(buffer, data.bytes, bufSize);
+                             }
                              return bufSize;
                          } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                              [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -191,9 +224,11 @@
                          bufferSize:LZ77_BUFFER_SIZE
                          readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                              uint32_t bufSize = MIN(length, inputSize - offset);
-                             [input seekToFileOffset:offset];
-                             NSData *data = [input readDataOfLength:bufSize];
-                             memcpy(buffer, data.bytes, bufSize);
+                             if (bufSize > 0) {
+                                 [input seekToFileOffset:offset];
+                                 NSData *data = [input readDataOfLength:bufSize];
+                                 memcpy(buffer, data.bytes, bufSize);
+                             }
                              return bufSize;
                          } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                              [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -216,9 +251,11 @@
             [self compressUsingLZ78:LZ78_DICT_SIZE
                          readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                              uint32_t bufSize = MIN(length, inputSize - offset);
-                             [input seekToFileOffset:offset];
-                             NSData *data = [input readDataOfLength:bufSize];
-                             memcpy(buffer, data.bytes, bufSize);
+                             if (bufSize > 0) {
+                                 [input seekToFileOffset:offset];
+                                 NSData *data = [input readDataOfLength:bufSize];
+                                 memcpy(buffer, data.bytes, bufSize);
+                             }
                              return bufSize;
                          } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                              [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -241,9 +278,11 @@
             [self compressUsingLZW:LZW_DICT_SIZE
                         readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                             uint32_t bufSize = MIN(length, inputSize - offset);
-                            [input seekToFileOffset:offset];
-                            NSData *data = [input readDataOfLength:bufSize];
-                            memcpy(buffer, data.bytes, bufSize);
+                            if (bufSize > 0) {
+                                [input seekToFileOffset:offset];
+                                NSData *data = [input readDataOfLength:bufSize];
+                                memcpy(buffer, data.bytes, bufSize);
+                            }
                             return bufSize;
                         } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                             [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -259,6 +298,33 @@
                                 completion(nil);
                             }
                         }];
+            break;
+        }
+        case kZXCAlgorithmHuffman:
+        {
+            [self compressUsingHuffman:HUFFMAN_BUFFER_SIZE
+                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
+                                uint32_t bufSize = MIN(length, inputSize - offset);
+                                if (bufSize > 0) {
+                                    [input seekToFileOffset:offset];
+                                    NSData *data = [input readDataOfLength:bufSize];
+                                    memcpy(buffer, data.bytes, bufSize);
+                                }
+                                return bufSize;
+                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
+                                [output writeData:[NSData dataWithBytes:buffer length:length]];
+                            } completion:^{
+#ifdef DEBUG
+                                uint32_t outputSize = (uint32_t)[output seekToEndOfFile];
+                                NSLog(@"[Huffman] input: %d bytes, output: %d bytes, compression ratio %.f%%, saving %d bytes", (int)inputSize, (int)outputSize, (outputSize / (double)inputSize) * 100, (int)(inputSize - outputSize));
+#endif
+                                [input closeFile];
+                                [output closeFile];
+                                //
+                                if (completion) {
+                                    completion(nil);
+                                }
+                            }];
             break;
         }
         default:
@@ -280,7 +346,9 @@
                            bufferSize:LZ77_BUFFER_SIZE
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               memcpy(&buffer[0], &input[offset], bufSize);
+                               if (bufSize > 0) {
+                                   memcpy(&buffer[0], &input[offset], bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output appendBytes:buffer length:length];
@@ -300,7 +368,9 @@
                            bufferSize:LZ77_BUFFER_SIZE
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               memcpy(&buffer[0], &input[offset], bufSize);
+                               if (bufSize > 0) {
+                                   memcpy(&buffer[0], &input[offset], bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output appendBytes:buffer length:length];
@@ -319,7 +389,9 @@
             [self decompressUsingLZ78:LZ78_DICT_SIZE
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               memcpy(&buffer[0], &input[offset], bufSize);
+                               if (bufSize > 0) {
+                                   memcpy(&buffer[0], &input[offset], bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output appendBytes:buffer length:length];
@@ -338,7 +410,9 @@
             [self decompressUsingLZW:LZW_DICT_SIZE
                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                               uint32_t bufSize = MIN(length, inputSize - offset);
-                              memcpy(&buffer[0], &input[offset], bufSize);
+                              if (bufSize > 0) {
+                                  memcpy(&buffer[0], &input[offset], bufSize);
+                              }
                               return bufSize;
                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                               [output appendBytes:buffer length:length];
@@ -395,8 +469,10 @@
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                [input seekToFileOffset:offset];
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               NSData *data = [input readDataOfLength:bufSize];
-                               memcpy(buffer, data.bytes, bufSize);
+                               if (bufSize > 0) {
+                                   NSData *data = [input readDataOfLength:bufSize];
+                                   memcpy(buffer, data.bytes, bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -420,8 +496,10 @@
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                [input seekToFileOffset:offset];
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               NSData *data = [input readDataOfLength:bufSize];
-                               memcpy(buffer, data.bytes, bufSize);
+                               if (bufSize > 0) {
+                                   NSData *data = [input readDataOfLength:bufSize];
+                                   memcpy(buffer, data.bytes, bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -444,8 +522,10 @@
                            readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                                [input seekToFileOffset:offset];
                                uint32_t bufSize = MIN(length, inputSize - offset);
-                               NSData *data = [input readDataOfLength:bufSize];
-                               memcpy(buffer, data.bytes, bufSize);
+                               if (bufSize > 0) {
+                                   NSData *data = [input readDataOfLength:bufSize];
+                                   memcpy(buffer, data.bytes, bufSize);
+                               }
                                return bufSize;
                            } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
@@ -468,8 +548,10 @@
                           readBuffer:^const uint32_t(uint8_t *buffer, const uint32_t length, const uint32_t offset) {
                               [input seekToFileOffset:offset];
                               uint32_t bufSize = MIN(length, inputSize - offset);
-                              NSData *data = [input readDataOfLength:bufSize];
-                              memcpy(buffer, data.bytes, bufSize);
+                              if (bufSize > 0) {
+                                  NSData *data = [input readDataOfLength:bufSize];
+                                  memcpy(buffer, data.bytes, bufSize);
+                              }
                               return bufSize;
                           } writeBuffer:^(const uint8_t *buffer, const uint32_t length) {
                               [output writeData:[NSData dataWithBytes:buffer length:length]];

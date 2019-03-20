@@ -30,31 +30,51 @@
 #include <string.h>
 #include "pqueue.h"
 
+/* huffman data */
+typedef struct huffman_data {
+    unsigned char symbol;
+    int weight; //freq
+} huffman_data;
+
+/* huffman file */
+typedef struct huffman_file {
+    int file_size;
+    int data_size;
+    struct huffman_data *data;
+} huffman_file;
+
 /* huffman code */
 typedef struct huffman_code {
-    uint8_t *bits;
-    uint8_t size;
-    uint8_t used;
+    unsigned char *bits;
+    int size;
+    int used;
 } huffman_code;
 
-/* huffman tree */
+/* huffman node */
 typedef struct huffman_node {
     struct huffman_node *parent;
     struct huffman_node *lchild;
     struct huffman_node *rchild;
-    uint8_t symbol;
-    int weight; //freq
+    struct huffman_data *data;
     struct huffman_code *code;
-} huffman_node;
+} huffman_node, huffman_tree;
 
-extern huffman_code * huffman_code_new(uint8_t size);
+extern huffman_data * huffman_data_new(unsigned char symbol, int weight);
+extern void huffman_data_free(huffman_data *data);
+
+extern huffman_file * huffman_file_new(int file_size, int data_size);
+extern void huffman_file_free(huffman_file *file);
+
+extern huffman_code * huffman_code_new(int size);
 extern void huffman_code_free(huffman_code *code);
-extern void huffman_code_plus(huffman_code *code, int state);
+extern void huffman_code_push(huffman_code *code, int state);
+extern int huffman_code_pop(huffman_code *code);
+extern void huffman_code_make(huffman_node *node, huffman_code *code);
 
-extern huffman_node * huffman_node_new(void);
+extern huffman_node * huffman_node_new(huffman_data *data);
 extern void huffman_node_free(huffman_node *node);
 
-extern void huffman_tree_build(huffman_node *tree, const char *symbols, const int *weights, const int size);
-extern void huffman_code_build(huffman_node *node, huffman_code *code);
+extern huffman_tree * huffman_tree_new(huffman_data *data, const int size);
+extern void huffman_tree_free(huffman_tree *tree);
 
 #endif /* huffman_h */
