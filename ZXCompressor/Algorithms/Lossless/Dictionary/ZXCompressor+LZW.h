@@ -34,9 +34,9 @@
  @param writeBuffer The output block
  @param completion The completion block
  */
-+ (void)compressUsingLZW:(const uint32_t)dictionarySize
-              readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-             writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingLZW:(const unsigned int)dictionarySize
+              readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+             writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
               completion:(void (^)(void))completion;
 
 /**
@@ -47,9 +47,9 @@
  @param writeBuffer The output block
  @param completion The completion block
  */
-+ (void)decompressUsingLZW:(const uint32_t)dictionarySize
-                readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-               writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingLZW:(const unsigned int)dictionarySize
+                readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+               writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                 completion:(void (^)(void))completion;
 
 @end

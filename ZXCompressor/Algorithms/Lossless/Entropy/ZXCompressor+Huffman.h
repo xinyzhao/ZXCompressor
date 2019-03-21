@@ -30,13 +30,15 @@
  Compress the data/file using by Huffman coding algorithm
  
  @param bufferSize The input buffer size
+ @param inputSize The input data/file size
  @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
  @param writeBuffer The output block
  @param completion The completion block
  */
-+ (void)compressUsingHuffman:(const uint32_t)bufferSize
-                  readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                 writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingHuffman:(const unsigned int)bufferSize
+                   inputSize:(const unsigned int)inputSize
+                  readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                 writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                   completion:(void (^)(void))completion;
 
 /**
@@ -47,9 +49,9 @@
  @param writeBuffer The output block,
  @param completion The completion block
  */
-+ (void)decompressUsingHuffman:(const uint32_t)bufferSize
-                    readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                   writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingHuffman:(const unsigned int)bufferSize
+                    readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                   writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                     completion:(void (^)(void))completion;
 
 @end

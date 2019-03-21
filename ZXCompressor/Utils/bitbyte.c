@@ -8,7 +8,7 @@
 
 #include "bitbyte.h"
 
-int bit_get(const uint8_t *bits, int pos) {
+int bit_get(const unsigned char *bits, int pos) {
     unsigned char mask = 0x80;
     for (int i = 0; i < (pos % 8); i++) {
         mask = mask >> 1;
@@ -16,7 +16,7 @@ int bit_get(const uint8_t *bits, int pos) {
     return (((mask & bits[(int)(pos / 8)]) == mask) ? 1 : 0);
 }
 
-void bit_set(uint8_t *bits, int pos, int state) {
+void bit_set(unsigned char *bits, int pos, int state) {
     unsigned char mask = 0x80;
     for (int i = 0; i < (pos % 8); i++) {
         mask = mask >> 1;
@@ -29,11 +29,11 @@ void bit_set(uint8_t *bits, int pos, int state) {
     return;
 }
 
-int size_in_bits(uint32_t size) {
+int size_in_bits(unsigned int size) {
     return log(size) / log(2);
 }
 
-int size_in_bytes(uint32_t size) {
+int size_in_bytes(unsigned int size) {
     int bits = size_in_bits(size);
     int bytes = bits / 8;
     if (bits % 8 > 0) {
@@ -47,7 +47,7 @@ int host_byte_order(void) {
     return byte == 0xBB; // 0xAA is Big Endian, 0xBB is Little Endian
 }
 
-void host_to_network_byte_order(void *target, void *source, uint32_t length) {
+void host_to_network_byte_order(void *target, void *source, unsigned int length) {
     if (host_byte_order()) {
         for (int i = 0; i < length; i++) {
             memcpy(&target[i], &source[length - i - 1], 1);
@@ -59,11 +59,11 @@ void host_to_network_byte_order(void *target, void *source, uint32_t length) {
     }
 }
 
-void network_to_host_byte_order(void *target, void *source, uint32_t length) {
+void network_to_host_byte_order(void *target, void *source, unsigned int length) {
     host_to_network_byte_order(target, source, length);
 }
 
-char search_bytes(const uint8_t *buffer, const uint32_t buffer_len, const uint8_t *bytes, const uint32_t bytes_len, uint32_t *offset, uint32_t *length) {
+char search_bytes(const unsigned char *buffer, const unsigned int buffer_len, const unsigned char *bytes, const unsigned int bytes_len, unsigned int *offset, unsigned int *length) {
     // 初始化
     char byte = bytes[0];
     *offset = 0;

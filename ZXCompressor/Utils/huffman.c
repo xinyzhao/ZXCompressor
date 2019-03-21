@@ -25,7 +25,7 @@
 #include "huffman.h"
 #include "bitbyte.h"
 
-huffman_data * huffman_data_new(unsigned char symbol, int weight) {
+huffman_data * huffman_data_new(int symbol, int weight) {
     huffman_data *data = malloc(sizeof(huffman_data));
     data->symbol = symbol;
     data->weight = weight;
@@ -38,35 +38,12 @@ void huffman_data_free(huffman_data *data) {
     }
 }
 
-huffman_file * huffman_file_new(int file_size, int data_size) {
-    huffman_file *file = malloc(sizeof(huffman_file));
-    file->file_size = file_size;
-    file->data_size = data_size;
-    if (data_size) {
-        file->data = malloc(sizeof(huffman_data) * data_size);
-        memset(file->data, 0, sizeof(huffman_data) * data_size);
-    } else {
-        file->data = NULL;
-    }
-    return file;
-}
-
-void huffman_file_free(huffman_file *file) {
-    if (file) {
-        if (file->data) {
-            free(file->data);
-            file->data = NULL;
-        }
-        free(file);
-    }
-}
-
 huffman_code * huffman_code_new(int size) {
     huffman_code *code = malloc(sizeof(huffman_code));
     if (code) {
         code->size = size;
         if (code->size > 0) {
-            size = size / 8 + (size % 8 ? 1 : 0);
+            size = BITS_TO_BYTES(code->size);
             code->bits = malloc(size);
             memset(code->bits, 0, size);
         } else {

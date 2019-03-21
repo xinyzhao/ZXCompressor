@@ -28,32 +28,30 @@
 
 @implementation ZXCompressor (Huffman)
 
-+ (void)compressUsingHuffman:(const uint32_t)bufferSize
-                  readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                 writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingHuffman:(const unsigned int)bufferSize
+                   inputSize:(const unsigned int)inputSize
+                  readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                 writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                   completion:(void (^)(void))completion {
-    // symbol size
-    uint32_t symbolSize = 256;
-    // huffman file
-    huffman_file *file = huffman_file_new(0, symbolSize);
-    for (int i = 0; i < symbolSize; i++) {
-        huffman_data *data = &file->data[i];
-        data->symbol = i;
-    }
     // read buffer
-    uint8_t *buffer = malloc(bufferSize);
+    unsigned char *buffer = malloc(bufferSize);
     memset(buffer, 0, bufferSize);
     // output
-    uint32_t outputSize = bufferSize;
-    uint8_t *output = malloc(outputSize);
+    unsigned int outputSize = bufferSize;
+    unsigned char *output = malloc(outputSize);
     memset(output, 0, outputSize);
     // read length in bytes
-    uint32_t readed;
+    unsigned int readed;
     // output length in bits
-    uint32_t length = 0;
+    unsigned int length = 0;
+    // symbol size
+    int symbolSize = 256;
     // temp
     int i,j,k,l;
-    // freq
+    // data
+    int freq_max = 0;
+    huffman_data *data = malloc(sizeof(huffman_data) * symbolSize);
+    memset(data, 0, sizeof(huffman_data) * symbolSize);
     for (i = 0; ; i += bufferSize) {
         readed = readBuffer ? readBuffer(buffer, bufferSize, i) : 0;
         if (readed == 0) {
@@ -61,15 +59,30 @@
         }
         for (j = 0; j < readed; j++) {
             k = buffer[j];
-            huffman_data *data = &file->data[i];
-            data->weight++;
+            data[k].weight++;
+            // freq max
+            if (freq_max < data[k].weight) {
+                freq_max = data[k].weight;
+            }
         }
         if (readed < bufferSize) {
             break;
         }
     }
+    // freq
+    int *freq = malloc(sizeof(int) * symbolSize);
+    memset(freq, 0, sizeof(int) * symbolSize);
+    for (i = 0; i < symbolSize; i++) {
+        data[i].symbol = i;
+        freq[i] = data[i].weight;
+    }
+    // write input size and freq info
+    if (writeBuffer) {
+        writeBuffer(&inputSize, sizeof(inputSize));
+        writeBuffer(&freq[0], sizeof(freq[0]) * symbolSize);
+    }
     // huffman tree
-    huffman_tree *tree = huffman_tree_new(file->data, file->data_size);
+    huffman_tree *tree = huffman_tree_new(data, symbolSize);
     // huffman coding
     for (i = 0; ; i += bufferSize) {
         readed = readBuffer ? readBuffer(buffer, bufferSize, i) : 0;
@@ -80,7 +93,7 @@
             k = buffer[j];
             huffman_node *node = &tree[k];
             // extend
-            if (BITS_TO_BYTES(length) + node->code->size > outputSize) {
+            if (BITS_TO_BYTES(length + node->code->size) > outputSize) {
                 output = realloc(output, outputSize * 2);
                 memset(&output[outputSize], 0, outputSize);
                 outputSize *= 2;
@@ -112,13 +125,19 @@
     }
     // free
     huffman_tree_free(tree);
+    free(freq);
+    free(data);
     free(output);
     free(buffer);
+    // completion
+    if (completion) {
+        completion();
+    }
 }
 
-+ (void)decompressUsingHuffman:(const uint32_t)bufferSize
-                    readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                   writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingHuffman:(const unsigned int)bufferSize
+                    readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                   writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                     completion:(void (^)(void))completion {
     
 }

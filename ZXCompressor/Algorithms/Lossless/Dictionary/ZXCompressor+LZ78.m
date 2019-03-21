@@ -28,42 +28,42 @@
 
 @implementation ZXCompressor (LZ78)
 
-+ (void)compressUsingLZ78:(const uint32_t)tableSize
-               readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-              writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingLZ78:(const unsigned int)tableSize
+               readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+              writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                completion:(void (^)(void))completion {
     // 编码字节数, 根据词典的大小(tableSize)决定
-    uint32_t codeSize = size_in_bytes(tableSize);
+    unsigned int codeSize = size_in_bytes(tableSize);
     // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
+    unsigned int symbolSize = sizeof(unsigned char);
     // 短语字节数
-    uint32_t phraseSize = codeSize + symbolSize;
+    unsigned int phraseSize = codeSize + symbolSize;
     // 前缀缓冲区大小(动态分配)
-    uint32_t prefixSize = 2;
+    unsigned int prefixSize = 2;
     // 前缀缓冲区+短语缓冲区
-    uint8_t *prefix = malloc(prefixSize);
-    uint8_t *phrase = malloc(phraseSize);
+    unsigned char *prefix = malloc(prefixSize);
+    unsigned char *phrase = malloc(phraseSize);
     memset(prefix, 0, prefixSize);
     memset(phrase, 0, phraseSize);
     // 符号缓冲区
-    uint8_t symbol = 0;
+    unsigned char symbol = 0;
     // 前缀缓冲区当前长度
-    uint32_t length = 0; // for prefix
+    unsigned int length = 0; // for prefix
     // 初始化字典
     hashtable * table = hashtable_new(tableSize);
     // 字典编码
-    uint32_t code;
-    uint32_t code_nbo = 0; // 网络字节序
-    uint32_t code_next = 1; // 下个编码
+    unsigned int code;
+    unsigned int code_nbo = 0; // 网络字节序
+    unsigned int code_next = 1; // 下个编码
     // 开始处理数据
-    for (uint32_t offset = 0; ; offset++) {
+    for (unsigned int offset = 0; ; offset++) {
         // 读入数据
-        uint32_t read = readBuffer ? readBuffer(&symbol, symbolSize, offset) : 0;
+        unsigned int read = readBuffer ? readBuffer(&symbol, symbolSize, offset) : 0;
         if (read == 0) {
             // 输出最后的编码
             if (length > 0) {
                 if (writeBuffer) {
-                    writeBuffer((uint8_t *)&code_nbo, codeSize);
+                    writeBuffer((unsigned char *)&code_nbo, codeSize);
                 }
             }
             break;
@@ -122,37 +122,37 @@
     }
 }
 
-+ (void)decompressUsingLZ78:(const uint32_t)tableSize
-                 readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingLZ78:(const unsigned int)tableSize
+                 readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                  completion:(void (^)(void))completion {
     // 编码字节数, 根据词典的大小(tableSize)决定
-    uint32_t codeSize = size_in_bytes(tableSize);
+    unsigned int codeSize = size_in_bytes(tableSize);
     // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
+    unsigned int symbolSize = sizeof(unsigned char);
     // 短语字节数
-    uint32_t phraseSize = codeSize + symbolSize;
+    unsigned int phraseSize = codeSize + symbolSize;
     // 输出字节数(动态调整)
-    uint32_t outputSize = 2;
+    unsigned int outputSize = 2;
     // 短语编码区+输出缓冲区
-    uint8_t *phrase = malloc(phraseSize);
-    uint8_t *output = malloc(outputSize);
+    unsigned char *phrase = malloc(phraseSize);
+    unsigned char *output = malloc(outputSize);
     memset(phrase, 0, phraseSize);
     memset(output, 0, outputSize);
     // 符号缓冲区
-    uint8_t symbol = 0;
+    unsigned char symbol = 0;
     // 输出缓冲区当前长度
-    uint32_t length = 0; // for output
+    unsigned int length = 0; // for output
     // 初始化字典
     hashtable * table = hashtable_new(tableSize);
     // 字典编码
-    uint32_t code;
-    uint32_t code_nbo = 0; // 网络字节序
-    uint32_t code_next = 1; // 下个编码
+    unsigned int code;
+    unsigned int code_nbo = 0; // 网络字节序
+    unsigned int code_next = 1; // 下个编码
     // 开始处理数据
-    for (uint32_t offset = 0; ; offset += phraseSize) {
+    for (unsigned int offset = 0; ; offset += phraseSize) {
         // 读入数据
-        uint32_t read = readBuffer ? readBuffer(phrase, phraseSize, offset) : 0;
+        unsigned int read = readBuffer ? readBuffer(phrase, phraseSize, offset) : 0;
         if (read < codeSize) {
             break;
         }

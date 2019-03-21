@@ -27,39 +27,39 @@
 
 @implementation ZXCompressor (LZ77)
 
-+ (void)compressUsingLZ77:(const uint32_t)windowSize
-               bufferSize:(const uint32_t)bufferSize
-               readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-              writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingLZ77:(const unsigned int)windowSize
+               bufferSize:(const unsigned int)bufferSize
+               readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+              writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                completion:(void (^)(void))completion {
     // 偏移字节数, 根据滑动窗口的大小(windowSize)决定
-    uint32_t offsetSize = size_in_bytes(windowSize);
+    unsigned int offsetSize = size_in_bytes(windowSize);
     // 长度字节数, 根据前向缓冲区的大小(bufferSize)决定
-    uint32_t lengthSize = size_in_bytes(bufferSize);
+    unsigned int lengthSize = size_in_bytes(bufferSize);
     // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
+    unsigned int symbolSize = sizeof(unsigned char);
     // 短语字节数(编码后的字节数)
-    uint32_t phraseSize = offsetSize + lengthSize + symbolSize;
+    unsigned int phraseSize = offsetSize + lengthSize + symbolSize;
     // 初始化滑动窗口+前向缓冲区+短语编码区
-    uint8_t *window = malloc(windowSize);
-    uint8_t *buffer = malloc(bufferSize);
-    uint8_t *phrase = malloc(phraseSize);
+    unsigned char *window = malloc(windowSize);
+    unsigned char *buffer = malloc(bufferSize);
+    unsigned char *phrase = malloc(phraseSize);
     memset(window, 0, windowSize);
     memset(buffer, 0, bufferSize);
     memset(phrase, 0, phraseSize);
     // 开始处理数据
-    uint8_t symbol;
-    uint32_t offset, length;
-    uint32_t offset_n, length_n; // 网络字节序
-    for (uint32_t cursor = 0; ; ) {
+    unsigned char symbol;
+    unsigned int offset, length;
+    unsigned int offset_n, length_n; // 网络字节序
+    for (unsigned int cursor = 0; ; ) {
         // 填充前向缓冲区
-        uint32_t bufSize = readBuffer ? readBuffer(buffer, bufferSize, cursor) : 0;
+        unsigned int bufSize = readBuffer ? readBuffer(buffer, bufferSize, cursor) : 0;
         if (bufSize == 0) {
             break;
         }
         // 查找短语
         offset = windowSize > cursor ? windowSize - cursor : 0;
-        uint32_t winSize = windowSize - offset;
+        unsigned int winSize = windowSize - offset;
         symbol = search_bytes(&window[offset], winSize, buffer, bufSize, &offset, &length);
         // 转换偏移量相对于前向缓冲区反向
         if (length > 0) {
@@ -98,33 +98,33 @@
     }
 }
 
-+ (void)decompressUsingLZ77:(const uint32_t)windowSize
-                 bufferSize:(const uint32_t)bufferSize
-                 readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingLZ77:(const unsigned int)windowSize
+                 bufferSize:(const unsigned int)bufferSize
+                 readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                  completion:(void (^)(void))completion {
     // 偏移字节数, 根据滑动窗口的大小(windowSize)决定
-    uint32_t offsetSize = size_in_bytes(windowSize);
+    unsigned int offsetSize = size_in_bytes(windowSize);
     // 长度字节数, 根据前向缓冲区的大小(bufferSize)决定
-    uint32_t lengthSize = size_in_bytes(bufferSize);
+    unsigned int lengthSize = size_in_bytes(bufferSize);
     // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
+    unsigned int symbolSize = sizeof(unsigned char);
     // 短语字节数(编码后的字节数)
-    uint32_t phraseSize = offsetSize + lengthSize + symbolSize;
+    unsigned int phraseSize = offsetSize + lengthSize + symbolSize;
     // 初始化滑动窗口+前向缓冲区+短语编码区
-    uint8_t *window = malloc(windowSize);
-    uint8_t *buffer = malloc(bufferSize);
-    uint8_t *phrase = malloc(phraseSize);
+    unsigned char *window = malloc(windowSize);
+    unsigned char *buffer = malloc(bufferSize);
+    unsigned char *phrase = malloc(phraseSize);
     memset(window, 0, windowSize);
     memset(buffer, 0, bufferSize);
     memset(phrase, 0, phraseSize);
     // 开始处理数据
-    uint8_t symbol;
-    uint32_t offset, length;
-    uint32_t offset_n, length_n; // 网络字节序
-    for (uint32_t cursor = 0; ; cursor += phraseSize) {
+    unsigned char symbol;
+    unsigned int offset, length;
+    unsigned int offset_n, length_n; // 网络字节序
+    for (unsigned int cursor = 0; ; cursor += phraseSize) {
         // 读取短语
-        uint32_t bufSize = readBuffer ? readBuffer(phrase, phraseSize, cursor) : 0;
+        unsigned int bufSize = readBuffer ? readBuffer(phrase, phraseSize, cursor) : 0;
         if (bufSize != phraseSize) {
             break;
         }

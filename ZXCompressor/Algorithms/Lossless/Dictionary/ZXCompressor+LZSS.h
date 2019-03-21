@@ -36,10 +36,10 @@
  @param writeBuffer The output block
  @param completion The completion block
  */
-+ (void)compressUsingLZSS:(const uint32_t)windowSize
-               bufferSize:(const uint32_t)bufferSize
-               readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-              writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingLZSS:(const unsigned int)windowSize
+               bufferSize:(const unsigned int)bufferSize
+               readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+              writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                completion:(void (^)(void))completion;
 
 /**
@@ -52,10 +52,10 @@
  @param writeBuffer The output block
  @param completion The completion block
  */
-+ (void)decompressUsingLZSS:(const uint32_t)windowSize
-                 bufferSize:(const uint32_t)bufferSize
-                 readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-                writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingLZSS:(const unsigned int)windowSize
+                 bufferSize:(const unsigned int)bufferSize
+                 readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                  completion:(void (^)(void))completion;
 
 @end

@@ -31,43 +31,43 @@
 #define LZW_CODE_BASE    256
 #define LZW_DICT_SIZE    4096
 
-+ (void)compressUsingLZW:(const uint32_t)dictionarySize
-              readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-             writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)compressUsingLZW:(const unsigned int)dictionarySize
+              readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+             writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
               completion:(void (^)(void))completion {
     // 调整词典大小
-    uint32_t tableSize = dictionarySize < LZW_DICT_SIZE ? LZW_DICT_SIZE : dictionarySize;
+    unsigned int tableSize = dictionarySize < LZW_DICT_SIZE ? LZW_DICT_SIZE : dictionarySize;
     // 编码字节数, 根据词典的大小(tableSize)决定
-    uint32_t codeSize = size_in_bytes(tableSize);
+    unsigned int codeSize = size_in_bytes(tableSize);
     // 符号字节数
-    uint32_t symbolSize = sizeof(uint8_t);
+    unsigned int symbolSize = sizeof(unsigned char);
     // 前缀缓冲区大小(动态分配)
-    uint32_t prefixSize = 2;
+    unsigned int prefixSize = 2;
     // 符号缓冲区
-    uint8_t symbol = 0;
+    unsigned char symbol = 0;
     // 前缀缓冲区
-    uint8_t *prefix = malloc(prefixSize);
+    unsigned char *prefix = malloc(prefixSize);
     memset(prefix, 0, prefixSize);
     // 前缀缓冲区当前长度
-    uint32_t length = 0; // for prefix
+    unsigned int length = 0; // for prefix
     // 初始化字典
     hashtable * table = hashtable_new(tableSize);
-    for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
+    for (unsigned int c = 0; c < LZW_CODE_BASE; c++) {
         hashtable_set_node(table, &c, symbolSize, &c, codeSize);
     }
     // 字典编码
-    uint32_t code;
-    uint32_t code_nbo = 0; // 网络字节序
-    uint32_t code_next = LZW_CODE_BASE; // 下个编码
+    unsigned int code;
+    unsigned int code_nbo = 0; // 网络字节序
+    unsigned int code_next = LZW_CODE_BASE; // 下个编码
     // 开始处理数据
-    for (uint32_t offset = 0; ; offset++) {
+    for (unsigned int offset = 0; ; offset++) {
         // 读入数据
-        uint32_t read = readBuffer ? readBuffer(&symbol, symbolSize, offset) : 0;
+        unsigned int read = readBuffer ? readBuffer(&symbol, symbolSize, offset) : 0;
         if (read == 0) {
             // 输出最后的编码
             if (length > 0) {
                 if (writeBuffer) {
-                    writeBuffer((uint8_t *)&code_nbo, codeSize);
+                    writeBuffer((unsigned char *)&code_nbo, codeSize);
                 }
             }
             break;
@@ -100,14 +100,14 @@
             // 超出范围，清空词典
             hashtable_free(table);
             table = hashtable_new(tableSize);
-            for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
+            for (unsigned int c = 0; c < LZW_CODE_BASE; c++) {
                 hashtable_set_node(table, &c, symbolSize, &c, codeSize);
             }
             code_next = LZW_CODE_BASE;
         }
         // 输出编码
         if (writeBuffer) {
-            writeBuffer((uint8_t *)&code_nbo, codeSize);
+            writeBuffer((unsigned char *)&code_nbo, codeSize);
         }
         // 重置前缀缓冲区
         memset(prefix, 0, prefixSize);
@@ -128,35 +128,35 @@
     }
 }
 
-+ (void)decompressUsingLZW:(const uint32_t)dictionarySize
-                readBuffer:(const uint32_t (^)(uint8_t *buffer, const uint32_t length, const uint32_t offset))readBuffer
-               writeBuffer:(void (^)(const uint8_t *buffer, const uint32_t length))writeBuffer
++ (void)decompressUsingLZW:(const unsigned int)dictionarySize
+                readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+               writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                 completion:(void (^)(void))completion {
     // 调整词典大小
-    uint32_t tableSize = dictionarySize < LZW_DICT_SIZE ? LZW_DICT_SIZE : dictionarySize;
+    unsigned int tableSize = dictionarySize < LZW_DICT_SIZE ? LZW_DICT_SIZE : dictionarySize;
     // 编码字节数, 根据词典的大小(tableSize)决定
-    uint32_t codeSize = size_in_bytes(tableSize);
+    unsigned int codeSize = size_in_bytes(tableSize);
     // 前缀缓冲区大小(动态分配)
-    uint32_t prefixSize = 2;
+    unsigned int prefixSize = 2;
     // 前缀缓冲区
-    uint8_t *prefix = malloc(prefixSize);
+    unsigned char *prefix = malloc(prefixSize);
     memset(prefix, 0, prefixSize);
     // 前缀缓冲区当前长度
-    uint32_t length = 0; // for prefix
+    unsigned int length = 0; // for prefix
     // 初始化字典
     hashtable * table = hashtable_new(tableSize);
-    for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
+    for (unsigned int c = 0; c < LZW_CODE_BASE; c++) {
         hashtable_set_node(table, &c, codeSize, &c, 1);
     }
     // 字典编码
-    uint32_t code;
-    uint32_t code_nbo = 0; // 网络字节序
-    uint32_t code_next = LZW_CODE_BASE; // 下个编码
+    unsigned int code;
+    unsigned int code_nbo = 0; // 网络字节序
+    unsigned int code_next = LZW_CODE_BASE; // 下个编码
     // 开始处理数据
-    for (uint32_t offset = 0; ; offset += codeSize) {
+    for (unsigned int offset = 0; ; offset += codeSize) {
         // 读入数据
         code_nbo = 0;
-        uint32_t read = readBuffer ? readBuffer((uint8_t *)&code_nbo, codeSize, offset) : 0;
+        unsigned int read = readBuffer ? readBuffer((unsigned char *)&code_nbo, codeSize, offset) : 0;
         if (read < codeSize) {
             break;
         }
@@ -186,7 +186,7 @@
                 // 超出范围，清空词典
                 hashtable_free(table);
                 table = hashtable_new(tableSize);
-                for (uint32_t c = 0; c < LZW_CODE_BASE; c++) {
+                for (unsigned int c = 0; c < LZW_CODE_BASE; c++) {
                     hashtable_set_node(table, &c, codeSize, &c, 1);
                 }
                 code_next = LZW_CODE_BASE;

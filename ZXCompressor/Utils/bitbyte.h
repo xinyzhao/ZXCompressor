@@ -51,7 +51,7 @@
  @param pos 位置
  @return 状态值，0 或 1
  */
-extern int bit_get(const uint8_t *bits, int pos);
+extern int bit_get(const unsigned char *bits, int pos);
 
 /**
  设置指定二进制位的值
@@ -60,7 +60,7 @@ extern int bit_get(const uint8_t *bits, int pos);
  @param pos 位置
  @param state 状态值，0 或 1
  */
-extern void bit_set(uint8_t *bits, int pos, int state);
+extern void bit_set(unsigned char *bits, int pos, int state);
 
 /**
  需要多少二进制位(bits)才能表示指定的大小(Size)
@@ -68,7 +68,7 @@ extern void bit_set(uint8_t *bits, int pos, int state);
  @param size 指定的大小(bytes)
  @return 二进制位数
  */
-extern int size_in_bits(uint32_t size);
+extern int size_in_bits(unsigned int size);
 
 /**
  需要多少字节(bytes)才能表示指定的大小(Size)
@@ -76,7 +76,7 @@ extern int size_in_bits(uint32_t size);
  @param size 指定的大小(bytes)
  @return 字节数量
  */
-extern int size_in_bytes(uint32_t size);
+extern int size_in_bytes(unsigned int size);
 
 /**
  获取主机字节序
@@ -92,7 +92,7 @@ extern int host_byte_order(void);
  @param source 网络字节
  @param length 字节长度
  */
-extern void host_to_network_byte_order(void *target, void *source, uint32_t length);
+extern void host_to_network_byte_order(void *target, void *source, unsigned int length);
 
 /**
  网络字节序转换为主机字节序
@@ -101,7 +101,7 @@ extern void host_to_network_byte_order(void *target, void *source, uint32_t leng
  @param source 网络字节
  @param length 字节长度
  */
-extern void network_to_host_byte_order(void *target, void *source, uint32_t length);
+extern void network_to_host_byte_order(void *target, void *source, unsigned int length);
 
 /**
  在缓冲区(buffer)中搜索与字节流(bytes)最长的匹配(longest match)
@@ -114,6 +114,6 @@ extern void network_to_host_byte_order(void *target, void *source, uint32_t leng
  @param length 搜索成功后，最大匹配长度，否则为0
  @return 返回下一个未匹配的字节
  */
-extern char search_bytes(const uint8_t *buffer, const uint32_t buffer_len, const uint8_t *bytes, const uint32_t bytes_len, uint32_t *offset, uint32_t *length);
+extern char search_bytes(const unsigned char *buffer, const unsigned int buffer_len, const unsigned char *bytes, const unsigned int bytes_len, unsigned int *offset, unsigned int *length);
 
 #endif /* bitbyte_h */

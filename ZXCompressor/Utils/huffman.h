@@ -32,22 +32,15 @@
 
 /* huffman data */
 typedef struct huffman_data {
-    unsigned char symbol;
+    int symbol;
     int weight; //freq
 } huffman_data;
-
-/* huffman file */
-typedef struct huffman_file {
-    int file_size;
-    int data_size;
-    struct huffman_data *data;
-} huffman_file;
 
 /* huffman code */
 typedef struct huffman_code {
     unsigned char *bits;
-    int size;
-    int used;
+    int size; // in bits
+    int used; // in bits
 } huffman_code;
 
 /* huffman node */
@@ -59,11 +52,8 @@ typedef struct huffman_node {
     struct huffman_code *code;
 } huffman_node, huffman_tree;
 
-extern huffman_data * huffman_data_new(unsigned char symbol, int weight);
+extern huffman_data * huffman_data_new(int symbol, int weight);
 extern void huffman_data_free(huffman_data *data);
-
-extern huffman_file * huffman_file_new(int file_size, int data_size);
-extern void huffman_file_free(huffman_file *file);
 
 extern huffman_code * huffman_code_new(int size);
 extern void huffman_code_free(huffman_code *code);
