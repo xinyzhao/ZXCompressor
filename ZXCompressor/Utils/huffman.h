@@ -32,7 +32,7 @@
 
 /* huffman data */
 typedef struct huffman_data {
-    int symbol;
+    char symbol;
     int weight; //freq
 } huffman_data;
 
@@ -66,5 +66,6 @@ extern void huffman_node_free(huffman_node *node);
 
 extern huffman_tree * huffman_tree_new(huffman_data *data, const int size);
 extern void huffman_tree_free(huffman_tree *tree);
+extern huffman_node * huffman_tree_root(huffman_tree *tree);
 
 #endif /* huffman_h */

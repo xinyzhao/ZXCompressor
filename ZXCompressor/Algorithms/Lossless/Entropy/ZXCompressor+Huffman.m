@@ -28,6 +28,9 @@
 
 @implementation ZXCompressor (Huffman)
 
+const int kHuffmanCharSize = sizeof(char);
+const int kHuffmanDataSize = 256;
+
 + (void)compressUsingHuffman:(const unsigned int)bufferSize
                    inputSize:(const unsigned int)inputSize
                   readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
@@ -44,14 +47,12 @@
     unsigned int readed;
     // output length in bits
     unsigned int length = 0;
-    // symbol size
-    int symbolSize = 256;
     // temp
     int i,j,k,l;
     // data
-    int freq_max = 0;
-    huffman_data *data = malloc(sizeof(huffman_data) * symbolSize);
-    memset(data, 0, sizeof(huffman_data) * symbolSize);
+    unsigned int data_size = sizeof(huffman_data) * kHuffmanDataSize;
+    huffman_data *data = malloc(data_size);
+    memset(data, 0, data_size);
     for (i = 0; ; i += bufferSize) {
         readed = readBuffer ? readBuffer(buffer, bufferSize, i) : 0;
         if (readed == 0) {
@@ -60,30 +61,27 @@
         for (j = 0; j < readed; j++) {
             k = buffer[j];
             data[k].weight++;
-            // freq max
-            if (freq_max < data[k].weight) {
-                freq_max = data[k].weight;
-            }
         }
         if (readed < bufferSize) {
             break;
         }
     }
     // freq
-    int *freq = malloc(sizeof(int) * symbolSize);
-    memset(freq, 0, sizeof(int) * symbolSize);
-    for (i = 0; i < symbolSize; i++) {
+    unsigned int freq_size = sizeof(unsigned int) * kHuffmanDataSize;
+    unsigned int *freq = malloc(freq_size);
+    memset(freq, 0, freq_size);
+    for (i = 0; i < kHuffmanDataSize; i++) {
         data[i].symbol = i;
         freq[i] = data[i].weight;
     }
     // write input size and freq info
     if (writeBuffer) {
         writeBuffer(&inputSize, sizeof(inputSize));
-        writeBuffer(&freq[0], sizeof(freq[0]) * symbolSize);
+        writeBuffer(freq, freq_size);
     }
     // huffman tree
-    huffman_tree *tree = huffman_tree_new(data, symbolSize);
-    // huffman coding
+    huffman_tree *tree = huffman_tree_new(data, kHuffmanDataSize);
+    // encoding
     for (i = 0; ; i += bufferSize) {
         readed = readBuffer ? readBuffer(buffer, bufferSize, i) : 0;
         if (readed == 0) {
@@ -93,7 +91,7 @@
             k = buffer[j];
             huffman_node *node = &tree[k];
             // extend
-            if (BITS_TO_BYTES(length + node->code->size) > outputSize) {
+            if (BITS_TO_BYTES(length + node->code->used) > outputSize) {
                 output = realloc(output, outputSize * 2);
                 memset(&output[outputSize], 0, outputSize);
                 outputSize *= 2;
@@ -139,7 +137,108 @@
                     readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
                    writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
                     completion:(void (^)(void))completion {
-    
+    // read buffer
+    unsigned char *buffer = malloc(bufferSize);
+    memset(buffer, 0, bufferSize);
+    // output
+    unsigned int outputSize = bufferSize;
+    unsigned char *output = malloc(outputSize);
+    memset(output, 0, outputSize);
+    // input offset in bytes
+    unsigned int offset = 0;
+    // output length in bits
+    unsigned int length = 0;
+    // read length in bytes
+    unsigned int readed = 0;
+    // writed length in bytes
+    unsigned int writed = 0;
+    // temp
+    int i,j,k,l;
+    // origin input size
+    unsigned int originSize = 0;
+    if (readBuffer) {
+        readed = readBuffer(&originSize, sizeof(originSize), offset);
+        offset += readed;
+    }
+    // freq
+    unsigned int freq_size = sizeof(unsigned int) * kHuffmanDataSize;
+    unsigned int *freq = malloc(freq_size);
+    memset(freq, 0, freq_size);
+    if (readBuffer) {
+        readed = readBuffer(freq, freq_size, offset);
+        offset += readed;
+    }
+    // data
+    unsigned int data_size = sizeof(huffman_data) * kHuffmanDataSize;
+    huffman_data *data = malloc(data_size);
+    memset(data, 0, data_size);
+    for (i = 0; i < kHuffmanDataSize; i++) {
+        data[i].symbol = i;
+        data[i].weight = freq[i];
+    }
+    // huffman tree
+    huffman_tree *tree = huffman_tree_new(data, kHuffmanDataSize);
+    huffman_node *node = huffman_tree_root(tree);
+    // decoding
+    for (i = offset; ; ) {
+        readed = readBuffer ? readBuffer(buffer, bufferSize, i) : 0;
+        if (readed == 0) {
+            break;
+        }
+        i += readed;
+        // bits
+        k = BYTES_TO_BITS(readed);
+        for (j = 0; j < k; j++) {
+            // next
+            l = bit_get(buffer, j);
+            if (l == 0) {
+                node = node->lchild;
+            } else {
+                node = node->rchild;
+            }
+            // leaf
+            if (node->lchild == NULL && node->rchild == NULL) {
+                memcpy(&output[length], &node->data->symbol, kHuffmanCharSize);
+                length += kHuffmanCharSize;
+                writed += kHuffmanCharSize;
+                // output
+                if (length >= outputSize) {
+                    if (writeBuffer) {
+                        writeBuffer(output, length);
+                    }
+                    // clear
+                    memset(output, 0, outputSize);
+                    length = 0;
+                }
+                // done
+                if (writed >= originSize) {
+                    break;
+                }
+                // reset
+                node = huffman_tree_root(tree);
+            }
+        }
+        // ended
+        if (readed < bufferSize) {
+            break;
+        }
+    }
+    // ended
+    if (length > 0) {
+        if (writeBuffer) {
+            writeBuffer(output, length);
+        }
+    }
+    // free
+    huffman_tree_free(tree);
+    free(data);
+    free(freq);
+    free(output);
+    free(buffer);
+    // 完成
+    if (completion) {
+        completion();
+    }
 }
 
 @end

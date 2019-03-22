@@ -355,9 +355,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+//#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -377,9 +377,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+//#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -398,9 +398,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+//#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -419,13 +419,34 @@
                           } writeBuffer:^(const void *buffer, const unsigned int length) {
                               [output appendBytes:buffer length:length];
                           } completion:^{
-#ifdef DEBUG
-                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-#endif
+//#ifdef DEBUG
+//                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+//#endif
                               if (completion) {
                                   completion([output copy]);
                               }
                           }];
+            break;
+        }
+        case kZXCAlgorithmHuffman:
+        {
+            [self decompressUsingHuffman:HUFFMAN_BUFFER_SIZE
+                              readBuffer:^const unsigned int(void *buffer, const unsigned int length, const unsigned int offset) {
+                                  unsigned int bufSize = MIN(length, inputSize - offset);
+                                  if (bufSize > 0) {
+                                      memcpy(&buffer[0], &input[offset], bufSize);
+                                  }
+                                  return bufSize;
+                              } writeBuffer:^(const void *buffer, const unsigned int length) {
+                                  [output appendBytes:buffer length:length];
+                              } completion:^{
+//#ifdef DEBUG
+//                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+//#endif
+                                  if (completion) {
+                                      completion([output copy]);
+                                  }
+                              }];
             break;
         }
         default:
@@ -479,9 +500,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+//#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -506,9 +527,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+//#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -532,9 +553,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-#ifdef DEBUG
-                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-#endif
+//#ifdef DEBUG
+//                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+//#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -558,9 +579,9 @@
                           } writeBuffer:^(const void *buffer, const unsigned int length) {
                               [output writeData:[NSData dataWithBytes:buffer length:length]];
                           } completion:^{
-#ifdef DEBUG
-                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-#endif
+//#ifdef DEBUG
+//                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+//#endif
                               [input closeFile];
                               [output closeFile];
                               //
@@ -568,6 +589,32 @@
                                   completion(nil);
                               }
                           }];
+            break;
+        }
+        case kZXCAlgorithmHuffman:
+        {
+            [self decompressUsingHuffman:HUFFMAN_BUFFER_SIZE
+                              readBuffer:^const unsigned int(void *buffer, const unsigned int length, const unsigned int offset) {
+                                  [input seekToFileOffset:offset];
+                                  unsigned int bufSize = MIN(length, inputSize - offset);
+                                  if (bufSize > 0) {
+                                      NSData *data = [input readDataOfLength:bufSize];
+                                      memcpy(buffer, data.bytes, bufSize);
+                                  }
+                                  return bufSize;
+                              } writeBuffer:^(const void *buffer, const unsigned int length) {
+                                  [output writeData:[NSData dataWithBytes:buffer length:length]];
+                              } completion:^{
+//#ifdef DEBUG
+//                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+//#endif
+                                  [input closeFile];
+                                  [output closeFile];
+                                  //
+                                  if (completion) {
+                                      completion(nil);
+                                  }
+                              }];
             break;
         }
         default:

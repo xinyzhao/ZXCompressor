@@ -101,15 +101,15 @@ void huffman_code_make(huffman_node *node, huffman_code *code) {
         memcpy(node->code->bits, code->bits, size);
         node->code->used = code->used;
         // printf
-#ifdef DEBUG
-        if (node->data->weight > 0) {
-            printf("0x%02X:", node->data->symbol);
-            for (int i = 0; i < code->used; i++) {
-                printf("%d", bit_get(code->bits, i));
-            }
-            printf("\n");
-        }
-#endif
+//#ifdef DEBUG
+//        if (node->data->weight > 0) {
+//            printf("0x%02X:", node->data->symbol);
+//            for (int i = 0; i < code->used; i++) {
+//                printf("%d", bit_get(code->bits, i));
+//            }
+//            printf("\n");
+//        }
+//#endif
     }
     // out recursive
     code->used--;
@@ -182,3 +182,10 @@ void huffman_tree_free(huffman_tree *tree) {
     huffman_node_free(tree);
 }
 
+huffman_node * huffman_tree_root(huffman_tree *tree) {
+    huffman_node *node = tree;
+    while (node->parent) {
+        node = node->parent;
+    }
+    return node;
+}

@@ -49,7 +49,7 @@
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 8; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
@@ -76,7 +76,7 @@
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 8; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
