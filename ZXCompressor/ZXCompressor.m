@@ -355,9 +355,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -377,9 +377,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -398,9 +398,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output appendBytes:buffer length:length];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
                                if (completion) {
                                    completion([output copy]);
                                }
@@ -419,9 +419,9 @@
                           } writeBuffer:^(const void *buffer, const unsigned int length) {
                               [output appendBytes:buffer length:length];
                           } completion:^{
-//#ifdef DEBUG
-//                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-//#endif
+#ifdef DEBUG
+                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
                               if (completion) {
                                   completion([output copy]);
                               }
@@ -440,9 +440,9 @@
                               } writeBuffer:^(const void *buffer, const unsigned int length) {
                                   [output appendBytes:buffer length:length];
                               } completion:^{
-//#ifdef DEBUG
-//                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
-//#endif
+#ifdef DEBUG
+                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)output.length);
+#endif
                                   if (completion) {
                                       completion([output copy]);
                                   }
@@ -500,9 +500,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZ77] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -527,9 +527,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZSS] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -553,9 +553,9 @@
                            } writeBuffer:^(const void *buffer, const unsigned int length) {
                                [output writeData:[NSData dataWithBytes:buffer length:length]];
                            } completion:^{
-//#ifdef DEBUG
-//                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-//#endif
+#ifdef DEBUG
+                               NSLog(@"[LZ78] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
                                [input closeFile];
                                [output closeFile];
                                //
@@ -579,9 +579,9 @@
                           } writeBuffer:^(const void *buffer, const unsigned int length) {
                               [output writeData:[NSData dataWithBytes:buffer length:length]];
                           } completion:^{
-//#ifdef DEBUG
-//                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-//#endif
+#ifdef DEBUG
+                              NSLog(@"[LZW] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
                               [input closeFile];
                               [output closeFile];
                               //
@@ -605,9 +605,9 @@
                               } writeBuffer:^(const void *buffer, const unsigned int length) {
                                   [output writeData:[NSData dataWithBytes:buffer length:length]];
                               } completion:^{
-//#ifdef DEBUG
-//                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
-//#endif
+#ifdef DEBUG
+                                  NSLog(@"[Huffman] input: %d bytes, output: %d bytes", (int)inputSize, (int)[output seekToEndOfFile]);
+#endif
                                   [input closeFile];
                                   [output closeFile];
                                   //
