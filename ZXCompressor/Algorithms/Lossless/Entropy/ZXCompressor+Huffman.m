@@ -28,7 +28,6 @@
 
 @implementation ZXCompressor (Huffman)
 
-const int kHuffmanCharSize = sizeof(char);
 const int kHuffmanDataSize = 256;
 
 + (void)compressUsingHuffman:(const unsigned int)bufferSize
@@ -140,10 +139,12 @@ const int kHuffmanDataSize = 256;
     // read buffer
     unsigned char *buffer = malloc(bufferSize);
     memset(buffer, 0, bufferSize);
-    // output
+    // output buffer
     unsigned int outputSize = bufferSize;
     unsigned char *output = malloc(outputSize);
     memset(output, 0, outputSize);
+    // symbol size
+    unsigned int symbolSize = sizeof(unsigned char);
     // input offset in bytes
     unsigned int offset = 0;
     // output length in bits
@@ -198,9 +199,9 @@ const int kHuffmanDataSize = 256;
             }
             // leaf
             if (node->lchild == NULL && node->rchild == NULL) {
-                memcpy(&output[length], &node->data->symbol, kHuffmanCharSize);
-                length += kHuffmanCharSize;
-                writed += kHuffmanCharSize;
+                memcpy(&output[length], &node->data->symbol, symbolSize);
+                length += symbolSize;
+                writed += symbolSize;
                 // output
                 if (length >= outputSize) {
                     if (writeBuffer) {

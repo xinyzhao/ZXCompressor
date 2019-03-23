@@ -47,7 +47,7 @@ int host_byte_order(void) {
     return byte == 0xBB; // 0xAA is Big Endian, 0xBB is Little Endian
 }
 
-void host_to_network_byte_order(void *target, void *source, unsigned int length) {
+void host_to_network_byte_order(void *target, const void *source, unsigned int length) {
     if (host_byte_order()) {
         for (int i = 0; i < length; i++) {
             memcpy(&target[i], &source[length - i - 1], 1);
@@ -59,7 +59,7 @@ void host_to_network_byte_order(void *target, void *source, unsigned int length)
     }
 }
 
-void network_to_host_byte_order(void *target, void *source, unsigned int length) {
+void network_to_host_byte_order(void *target, const void *source, unsigned int length) {
     host_to_network_byte_order(target, source, length);
 }
 

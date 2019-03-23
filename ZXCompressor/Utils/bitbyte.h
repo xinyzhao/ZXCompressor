@@ -92,7 +92,7 @@ extern int host_byte_order(void);
  @param source 网络字节
  @param length 字节长度
  */
-extern void host_to_network_byte_order(void *target, void *source, unsigned int length);
+extern void host_to_network_byte_order(void *target, const void *source, unsigned int length);
 
 /**
  网络字节序转换为主机字节序
@@ -101,7 +101,7 @@ extern void host_to_network_byte_order(void *target, void *source, unsigned int 
  @param source 网络字节
  @param length 字节长度
  */
-extern void network_to_host_byte_order(void *target, void *source, unsigned int length);
+extern void network_to_host_byte_order(void *target, const void *source, unsigned int length);
 
 /**
  在缓冲区(buffer)中搜索与字节流(bytes)最长的匹配(longest match)

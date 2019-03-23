@@ -44,12 +44,12 @@
 - (void)testFile {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    NSArray *algorithms = @[@(kZXCAlgorithmHuffman)];
-    NSArray *prefixes = @[@"huffman"];
+    NSArray *algorithms = @[@(kZXCAlgorithmLZW)];
+    NSArray *prefixes = @[@"lzw"];
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 0; j < 8; j++) {
+        for (int j = 8; j <= 12; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
@@ -76,7 +76,7 @@
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 0; j < 8; j++) {
+        for (int j = 8; j <= 12; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
