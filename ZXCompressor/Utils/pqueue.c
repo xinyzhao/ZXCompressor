@@ -5,14 +5,14 @@
 
 #include "pqueue.h"
 
-extern pqueue_node * pqueue_node_new(int priority, void *data) {
+pqueue_node * pqueue_node_new(int priority, void *data) {
     pqueue_node *node = malloc(sizeof(pqueue_node));
     node->priority = priority;
     node->data = data;
     return node;
 }
 
-extern void pqueue_node_free(pqueue_node *node) {
+void pqueue_node_free(pqueue_node *node) {
     if (node) {
         node->priority = 0;
         node->data = NULL;
@@ -20,7 +20,7 @@ extern void pqueue_node_free(pqueue_node *node) {
     }
 }
 
-extern pqueue_heap * pqueue_heap_new(unsigned int size) {
+pqueue_heap * pqueue_heap_new(unsigned int size) {
     pqueue_heap *heap = malloc(sizeof(pqueue_heap));
     heap->size = size;
     if (heap->size > 0) {
@@ -32,7 +32,7 @@ extern pqueue_heap * pqueue_heap_new(unsigned int size) {
     return heap;
 }
 
-extern void pqueue_heap_free(pqueue_heap *heap) {
+void pqueue_heap_free(pqueue_heap *heap) {
     if (heap) {
         if (heap->nodes) {
             free(heap->nodes);
