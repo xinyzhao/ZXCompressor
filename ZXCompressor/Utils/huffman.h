@@ -61,11 +61,8 @@ extern void huffman_code_push(huffman_code *code, int state);
 extern int huffman_code_pop(huffman_code *code);
 extern void huffman_code_make(huffman_node *node, huffman_code *code);
 
-extern huffman_node * huffman_node_new(huffman_data *data);
-extern void huffman_node_free(huffman_node *node);
-
 extern huffman_tree * huffman_tree_new(huffman_data *data, const int size);
-extern void huffman_tree_free(huffman_tree *tree);
+extern void huffman_tree_free(huffman_tree *tree, const int size);
 extern huffman_node * huffman_tree_root(huffman_tree *tree);
 
 #endif /* huffman_h */

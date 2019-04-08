@@ -115,32 +115,6 @@ void huffman_code_make(huffman_node *node, huffman_code *code) {
     code->used--;
 }
 
-huffman_node * huffman_node_new(huffman_data *data) {
-    huffman_node *node = malloc(sizeof(huffman_node));
-    node->data = malloc(sizeof(huffman_data));
-    memset(node->data, 0, sizeof(huffman_data));
-    node->code = malloc(sizeof(huffman_code));
-    memset(node->code, 0, sizeof(huffman_code));
-    if (data) {
-        memcpy(node->data, node->data, sizeof(huffman_data));
-    }
-    return node;
-}
-
-void huffman_node_free(huffman_node *node) {
-    if (node) {
-        if (node->data) {
-            free(node->data);
-            node->data = NULL;
-        }
-        if (node->code) {
-            free(node->code);
-            node->code = NULL;
-        }
-        free(node);
-    }
-}
-
 huffman_tree * huffman_tree_new(huffman_data *data, const int size) {
     // size
     int leaf_size = size;
@@ -178,8 +152,21 @@ huffman_tree * huffman_tree_new(huffman_data *data, const int size) {
     return tree;
 }
 
-void huffman_tree_free(huffman_tree *tree) {
-    huffman_node_free(tree);
+void huffman_tree_free(huffman_tree *tree, const int size) {
+    if (tree) {
+        for (int i = 0; i < size; i++) {
+            huffman_node *node = &tree[i];
+            if (node->data) {
+                huffman_data_free(node->data);
+                node->data = NULL;
+            }
+            if (node->code) {
+                huffman_code_free(node->code);
+                node->code = NULL;
+            }
+        }
+        free(tree);
+    }
 }
 
 huffman_node * huffman_tree_root(huffman_tree *tree) {

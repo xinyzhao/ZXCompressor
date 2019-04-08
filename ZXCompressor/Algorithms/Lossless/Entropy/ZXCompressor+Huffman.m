@@ -121,7 +121,7 @@ const int kHuffmanDataSize = 256;
         }
     }
     // free
-    huffman_tree_free(tree);
+    huffman_tree_free(tree, kHuffmanDataSize);
     free(freq);
     free(data);
     free(output);
@@ -231,7 +231,7 @@ const int kHuffmanDataSize = 256;
         }
     }
     // free
-    huffman_tree_free(tree);
+    huffman_tree_free(tree, kHuffmanDataSize);
     free(data);
     free(freq);
     free(output);

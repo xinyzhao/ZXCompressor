@@ -38,7 +38,7 @@
         obj->weight = weights[i];
     }
     huffman_tree *tree = huffman_tree_new(data, size);
-    huffman_tree_free(tree);
+    huffman_tree_free(tree, size);
 }
 
 - (void)testFile {
