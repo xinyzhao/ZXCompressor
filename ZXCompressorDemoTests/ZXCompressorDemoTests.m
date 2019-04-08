@@ -49,7 +49,7 @@
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 8; j <= 12; j++) {
+        for (int j = 8; j < 13; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {
@@ -68,15 +68,15 @@
     }
 }
 
-- (void)testFull {
+- (void)testFiles {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-    NSArray *algorithms = @[@(kZXCAlgorithmLZ77), @(kZXCAlgorithmLZ78), @(kZXCAlgorithmLZSS), @(kZXCAlgorithmLZW), @(kZXCAlgorithmHuffman)];
-    NSArray *prefixes = @[@"lz77", @"lz78", @"lzss", @"lzw", @"huffman"];
+    NSArray *algorithms = @[@(kZXCAlgorithmLZ77), @(kZXCAlgorithmLZ78), @(kZXCAlgorithmLZSS), @(kZXCAlgorithmLZW), @(kZXCAlgorithmHuffman), @(kZXCAlgorithmArithmetic), @(kZXCAlgorithmBWT), @(kZXCAlgorithmPPM), @(kZXCAlgorithmRLE)];
+    NSArray *prefixes = @[@"lz77", @"lz78", @"lzss", @"lzw", @"huffman", @"arithmetic", @"bwt", @"ppm", @"rle"];
     for (int i = 0; i < algorithms.count; i++) {
         ZXCAlgorithm algorithm = (ZXCAlgorithm)[algorithms[i] intValue];
         NSString *prefix = prefixes[i];
-        for (int j = 8; j <= 12; j++) {
+        for (int j = 0; j < 1; j++) {
             NSString *path = [NSString stringWithFormat:@"/Users/xyz/test/%d.txt", j];
             NSString *file1 = [NSString stringWithFormat:@"/Users/xyz/test/%@_file_%d+.txt", prefix, j];
             [ZXCompressor compressFileAtPath:path toPath:file1 usingAlgorithm:algorithm completion:^(NSError *error) {

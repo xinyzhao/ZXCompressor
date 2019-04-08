@@ -26,4 +26,23 @@
 
 @implementation ZXCompressor (Arithmetic)
 
++ (void)compressUsingArithmetic:(const unsigned int)bufferSize
+                      inputSize:(const unsigned int)inputSize
+                     readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                    writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
+                     completion:(void (^)(void))completion {
+    if (completion) {
+        completion();
+    }
+}
+
++ (void)decompressUsingArithmetic:(const unsigned int)bufferSize
+                       readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                      writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
+                       completion:(void (^)(void))completion {
+    if (completion) {
+        completion();
+    }
+}
+
 @end

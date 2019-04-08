@@ -156,6 +156,7 @@
             break;
         }
         default:
+            NSLog(@"%s unsupported algorithm %d", __func__, algorithm);
             break;
     }
 }
@@ -330,6 +331,7 @@
             break;
         }
         default:
+            NSLog(@"%s unsupported algorithm %d", __func__, algorithm);
             break;
     }
 }
@@ -450,6 +452,7 @@
             break;
         }
         default:
+            NSLog(@"%s unsupported algorithm %d", __func__, algorithm);
             break;
     }
 }
@@ -618,6 +621,7 @@
             break;
         }
         default:
+            NSLog(@"%s unsupported algorithm %d", __func__, algorithm);
             break;
     }
 }
