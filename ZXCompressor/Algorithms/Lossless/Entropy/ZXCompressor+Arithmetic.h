@@ -26,4 +26,32 @@
 
 @interface ZXCompressor (Arithmetic)
 
+/**
+ Compress the data/file using by Arithmetic coding algorithm
+ 
+ @param bufferSize The input buffer size
+ @param inputSize The input data/file size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block
+ @param completion The completion block
+ */
++ (void)compressUsingArithmetic:(const unsigned int)bufferSize
+                      inputSize:(const unsigned int)inputSize
+                     readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                    writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
+                     completion:(void (^)(void))completion;
+
+/**
+ Decompress the data/file using by Arithmetic coding algorithm
+ 
+ @param bufferSize The input buffer size
+ @param readBuffer The input block, start at 'offset' in the input data, read 'length'(max) bytes to 'buffer'
+ @param writeBuffer The output block,
+ @param completion The completion block
+ */
++ (void)decompressUsingArithmetic:(const unsigned int)bufferSize
+                       readBuffer:(const unsigned int (^)(void *buffer, const unsigned int length, const unsigned int offset))readBuffer
+                      writeBuffer:(void (^)(const void *buffer, const unsigned int length))writeBuffer
+                       completion:(void (^)(void))completion;
+
 @end
